@@ -49,9 +49,6 @@
   show-declaration-of-authorship: true,
   show-table-of-contents: true,
   show-acronyms: true,
-  show-list-of-figures: true,
-  show-list-of-tables: true,
-  show-code-snippets: true,
   show-abstract: true,
   numbering-alignment: center,
   toc-depth: 3,
@@ -96,9 +93,6 @@
     show-declaration-of-authorship,
     show-table-of-contents,
     show-acronyms,
-    show-list-of-figures,
-    show-list-of-tables,
-    show-code-snippets,
     show-abstract,
     header,
     numbering-alignment,
@@ -388,42 +382,6 @@
       indent: auto,
       depth: toc-depth,
     )
-  }
-
-  context {
-    let elems = query(figure.where(kind: image))
-    let count = elems.len()
-
-    if (show-list-of-figures and count > 0) {
-      outline(
-        title: LIST_OF_FIGURES.at(language),
-        target: figure.where(kind: image),
-      )
-    }
-  }
-
-  context {
-    let elems = query(figure.where(kind: table))
-    let count = elems.len()
-
-    if (show-list-of-tables and count > 0) {
-      outline(
-        title: LIST_OF_TABLES.at(language),
-        target: figure.where(kind: table),
-      )
-    }
-  }
-
-  context {
-    let elems = query(figure.where(kind: raw))
-    let count = elems.len()
-
-    if (show-code-snippets and count > 0) {
-      outline(
-        title: CODE_SNIPPETS.at(language),
-        target: figure.where(kind: raw),
-      )
-    }
   }
 
   if (show-acronyms and acronyms != none and acronyms.len() > 0) {

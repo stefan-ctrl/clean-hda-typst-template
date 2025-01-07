@@ -10,9 +10,6 @@
   show-declaration-of-authorship,
   show-table-of-contents,
   show-acronyms,
-  show-list-of-figures,
-  show-list-of-tables,
-  show-code-snippets,
   show-abstract,
   header,
   numbering-alignment,
@@ -52,9 +49,6 @@
     show-table-of-contents: show-table-of-contents,
     show-acronyms: show-acronyms,
     show-declaration-of-authorship: show-declaration-of-authorship,
-    show-list-of-figures: show-list-of-figures,
-    show-list-of-tables: show-list-of-tables,
-    show-code-snippets: show-code-snippets,
     show-abstract: show-abstract,
   )
 

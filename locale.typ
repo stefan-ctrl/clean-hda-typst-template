@@ -107,21 +107,6 @@ The content of this thesis may not be made available, either in its entirety or 
   "en": "Table of Contents",
 )
 
-#let LIST_OF_FIGURES = (
-  "de": "Abbildungsverzeichnis",
-  "en": "List of Figures",
-)
-
-#let LIST_OF_TABLES = (
-  "de": "Tabellenverzeichnis",
-  "en": "List of Tables",
-)
-
-#let CODE_SNIPPETS = (
-  "de": "Codeverzeichnis",
-  "en": "Code Snippets",
-)
-
 #let ACRONYMS = (
   "de": "Abkürzungsverzeichnis",
   "en": "List of Acronyms",
