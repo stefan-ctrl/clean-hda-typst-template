@@ -1,4 +1,4 @@
-#import "@preview/codelst:2.0.1": *
+//#import "@preview/codelst:2.0.1": *
 #import "acronym-lib.typ": init-acronyms, print-acronyms, acr, acrpl, acrs, acrspl, acrl, acrlpl, acrf, acrfpl
 #import "glossary-lib.typ": init-glossary, print-glossary, gls
 #import "locale.typ": TABLE_OF_CONTENTS, APPENDIX, REFERENCES
@@ -119,18 +119,22 @@
     page-numbering,
   )
 
-  // set the document's basic properties
-  set document(title: title, author: authors.map(author => author.name))
-  let many-authors = authors.len() > 3
+  // ---------- Fonts & Related Measures ---------------------------------------
 
-  // save heading and body font families in variables
-  let body-font = "Open Sans"
-  let heading-font = "Montserrat"
+  let body-font = "Source Serif 4"
+  let body-size = 11pt
+  let heading-font = "Source Sans 3"
+  let h1-size = 40pt
+  let h2-size = 16pt
+  let h3-size = 11pt
+  let h4-size = 11pt
+  let page-grid = 16pt
 
-  // set body font family
-  set text(font: body-font, lang: language, 12pt)
   
   // ---------- Basic Document Settings ---------------------------------------
+
+  set document(title: title, author: authors.map(author => author.name))
+  let many-authors = authors.len() > 3
 
   // define logo size with given ration
   let left-logo-height = 2.4cm // left logo is always 2.4cm high
@@ -139,7 +143,7 @@
   if (logo-ratio.len() == 2) {
     right-logo-height = right-logo-height * (float(logo-ratio.at(1)) / float(logo-ratio.at(0)))
   }
-  
+
   init-acronyms(acronyms)
   init-glossary(glossary)
 
@@ -195,6 +199,8 @@
     )
   }
 
+  // ---------- Page Setup ---------------------------------------
+
   // set header properties
   let display-header = if (header != none and ("display" in header)) {
     header.display
@@ -232,8 +238,23 @@
     true
   }
 
+  // adapt body text layout to basic measures
+  set text(
+    font: body-font, 
+    lang: language, 
+    size: body-size - 0.5pt,
+    top-edge: 0.75 * body-size, 
+    bottom-edge: -0.25 * body-size,
+  )
+  set par(
+    spacing: page-grid + (page-grid - body-size),   // no clue, why not only `page-grid`
+    leading: page-grid - body-size, 
+    justify: true,
+  )
+
+
   set page(
-    margin: (top: 8em, bottom: 8em),
+    margin: (top: 4cm, bottom: 3cm, left: 4cm, right: 3cm),
     header: [
       #set block(spacing: 0.75em)
       #context {
@@ -301,7 +322,7 @@
 
   // ---------- Heading Format ---------------------------------------
 
-  show heading: set text(weight: "semibold", font: heading-font)
+  show heading: set text(weight: 700, fill: luma(80), font: heading-font)
   set heading(numbering: heading-numbering)
 
   show heading.where(level: 1): it => {
@@ -344,7 +365,7 @@
 
   // ---------- Abstract ---------------------------------------
 
-  set par(justify: true, leading: 1em)
+  //set par(justify: true, leading: 1em)
 
   if (show-abstract and abstract != none) {
     align(center + horizon, heading(level: 1, numbering: none, outlined: false)[Abstract])
@@ -358,7 +379,7 @@
     strong(it)
   }
 
-  set par(leading: 0.65em)
+  //set par(leading: 0.65em)
 
   if (show-table-of-contents) {
     outline(
@@ -373,8 +394,11 @@
 
   // ========== DOCUMENT BODY ========================================
 
-  set par(leading: 1em, spacing: 2em)
-  set block(spacing: 2em)
+  // set par(
+  //   leading: page-grid - body-size, 
+  //   spacing: page-grid + 5pt,
+  // )
+  //set block(spacing: 2em)
 
   // reset page numbering and set to main page numbering
   let main-numbering = "1 / 1"
