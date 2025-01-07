@@ -332,36 +332,6 @@
   )
   counter(page).update(1)
 
-  if (not at-university and show-confidentiality-statement) {
-    pagebreak()
-    confidentiality-statement(
-      authors,
-      title,
-      confidentiality-statement-content,
-      university,
-      university-location,
-      date,
-      language,
-      many-authors,
-      date-format,
-    )
-  }
-
-  if (show-declaration-of-authorship) {
-    pagebreak()
-    declaration-of-authorship(
-      authors,
-      title,
-      declaration-of-authorship-content,
-      date,
-      language,
-      many-authors,
-      at-university,
-      city,
-      date-format,
-    )
-  }
-
   show outline.entry.where(level: 1): it => {
     v(18pt, weak: true)
     strong(it)
@@ -464,6 +434,36 @@
   if (appendix != none) {
     heading(level: 1, numbering: none)[#APPENDIX.at(language)]
     appendix
+  }
+
+  if (not at-university and show-confidentiality-statement) {
+    pagebreak()
+    confidentiality-statement(
+      authors,
+      title,
+      confidentiality-statement-content,
+      university,
+      university-location,
+      date,
+      language,
+      many-authors,
+      date-format,
+    )
+  }
+
+  if (show-declaration-of-authorship) {
+    pagebreak()
+    declaration-of-authorship(
+      authors,
+      title,
+      declaration-of-authorship-content,
+      date,
+      language,
+      many-authors,
+      at-university,
+      city,
+      date-format,
+    )
   }
 
   [#metadata(none)<numbering-appendix-end>]
