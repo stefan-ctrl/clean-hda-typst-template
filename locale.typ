@@ -1,16 +1,21 @@
-#let TITLEPAGE_SECTION_A = (
-  "de": "für den Erwerb des",
-  "en": "for the",
-)
+// #let TITLEPAGE_SECTION_A = (
+//   "de": "für den Erwerb des",
+//   "en": "for the",
+// )
 
 #let TITLEPAGE_SECTION_B = (
-  "de": "aus dem Studiengang ",
-  "en": "from the course of studies ",
+  "de": "Studiengang ",
+  "en": "Course of Studies ",
 )
 
-#let TITLEPAGE_SECTION_C = (
-  "de": "an der ",
-  "en": "at the ",
+// #let TITLEPAGE_SECTION_C = (
+//   "de": "an der ",
+//   "en": "at the ",
+// )
+
+#let TITLEPAGE_DATE = (
+  "de": "Eingereicht am:",
+  "en": "Submitted on:",
 )
 
 #let TITLEPAGE_STUDENT_ID = (

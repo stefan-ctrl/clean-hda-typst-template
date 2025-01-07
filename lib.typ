@@ -197,6 +197,7 @@
       show-confidentiality-statement,
       confidentiality-marker,
       university-short,
+      page-grid,
     )
   }
 
