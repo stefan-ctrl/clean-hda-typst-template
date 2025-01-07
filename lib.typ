@@ -123,8 +123,14 @@
   set document(title: title, author: authors.map(author => author.name))
   let many-authors = authors.len() > 3
 
-  init-acronyms(acronyms)
-  init-glossary(glossary)
+  // save heading and body font families in variables
+  let body-font = "Open Sans"
+  let heading-font = "Montserrat"
+
+  // set body font family
+  set text(font: body-font, lang: language, 12pt)
+  
+  // ---------- Basic Document Settings ---------------------------------------
 
   // define logo size with given ration
   let left-logo-height = 2.4cm // left logo is always 2.4cm high
@@ -133,20 +139,12 @@
   if (logo-ratio.len() == 2) {
     right-logo-height = right-logo-height * (float(logo-ratio.at(1)) / float(logo-ratio.at(0)))
   }
-
-  // save heading and body font families in variables
-  let body-font = "Open Sans"
-  let heading-font = "Montserrat"
+  
+  init-acronyms(acronyms)
+  init-glossary(glossary)
 
   // customize look of figure
   set figure.caption(separator: [ --- ], position: bottom)
-
-  // set body font family
-  set text(font: body-font, lang: language, 12pt)
-  show heading: set text(weight: "semibold", font: heading-font)
-
-  // heading numbering
-  set heading(numbering: heading-numbering)
 
   // math numbering
   set math.equation(numbering: math-numbering)
@@ -168,12 +166,7 @@
     it
   }
 
-  show heading.where(level: 1): it => {
-    pagebreak()
-    v(2em) + it + v(1em)
-  }
-  show heading.where(level: 2): it => v(1em) + it + v(0.5em)
-  show heading.where(level: 3): it => v(0.5em) + it + v(0.25em)
+  // ========== TITLEPAGE ========================================
 
   if (titlepage-content != none) {
     titlepage-content
@@ -306,7 +299,21 @@
     ],
   )
 
-  // set page numbering for preface
+  // ---------- Heading Format ---------------------------------------
+
+  show heading: set text(weight: "semibold", font: heading-font)
+  set heading(numbering: heading-numbering)
+
+  show heading.where(level: 1): it => {
+    pagebreak()
+    v(2em) + it + v(1em)
+  }
+  show heading.where(level: 2): it => v(1em) + it + v(0.5em)
+  show heading.where(level: 3): it => v(0.5em) + it + v(0.25em)
+
+
+  // ---------- Page Numbering (Preface) ---------------------------------------
+
   let preface-numbering = "I"
   if ("preface" in page-numbering) {
     preface-numbering = page-numbering.preface
@@ -332,16 +339,23 @@
   )
   counter(page).update(1)
 
-  show outline.entry.where(level: 1): it => {
-    v(18pt, weak: true)
-    strong(it)
-  }
+
+  // ========== FRONTMATTER ========================================
+
+  // ---------- Abstract ---------------------------------------
 
   set par(justify: true, leading: 1em)
 
   if (show-abstract and abstract != none) {
     align(center + horizon, heading(level: 1, numbering: none, outlined: false)[Abstract])
     text(abstract)
+  }
+
+  // ---------- Outline ---------------------------------------
+
+  show outline.entry.where(level: 1): it => {
+    v(18pt, weak: true)
+    strong(it)
   }
 
   set par(leading: 0.65em)
@@ -355,6 +369,9 @@
   }
 
   [#metadata(none)<numbering-preface-end>]
+
+
+  // ========== DOCUMENT BODY ========================================
 
   set par(leading: 1em, spacing: 2em)
   set block(spacing: 2em)
@@ -414,7 +431,11 @@
   )
   counter(page).update(1)
 
-  // Display bibliography.
+
+  // ========== APPENDIX ========================================
+
+  // ---------- Bibliography ---------------------------------------
+
   if bibliography != none {
     set std-bibliography(
       title: REFERENCES.at(language),
@@ -428,6 +449,8 @@
     appendix
   }
 
+  // ---------- Acronyms & Glossary ---------------------------------------
+
   if (show-acronyms and acronyms != none and acronyms.len() > 0) {
     print-acronyms(language, acronym-spacing)
   }
@@ -435,6 +458,8 @@
   if (glossary != none and glossary.len() > 0) {
     print-glossary(language, glossary-spacing)
   }
+
+  // ---------- Confidentiality Statement ---------------------------------------
 
   if (not at-university and show-confidentiality-statement) {
     pagebreak()
@@ -450,6 +475,8 @@
       date-format,
     )
   }
+
+  // ---------- Declaration Of Authorship ---------------------------------------
 
   if (show-declaration-of-authorship) {
     pagebreak()
