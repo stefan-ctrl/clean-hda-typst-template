@@ -354,14 +354,6 @@
     )
   }
 
-  if (show-acronyms and acronyms != none and acronyms.len() > 0) {
-    print-acronyms(language, acronym-spacing)
-  }
-
-  if (glossary != none and glossary.len() > 0) {
-    print-glossary(language, glossary-spacing)
-  }
-
   [#metadata(none)<numbering-preface-end>]
 
   set par(leading: 1em, spacing: 2em)
@@ -434,6 +426,14 @@
   if (appendix != none) {
     heading(level: 1, numbering: none)[#APPENDIX.at(language)]
     appendix
+  }
+
+  if (show-acronyms and acronyms != none and acronyms.len() > 0) {
+    print-acronyms(language, acronym-spacing)
+  }
+
+  if (glossary != none and glossary.len() > 0) {
+    print-glossary(language, glossary-spacing)
   }
 
   if (not at-university and show-confidentiality-statement) {
