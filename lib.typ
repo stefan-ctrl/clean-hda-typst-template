@@ -1,4 +1,4 @@
-//#import "@preview/codelst:2.0.1": *
+#import "@preview/codelst:2.0.1": *
 #import "acronym-lib.typ": init-acronyms, print-acronyms, acr, acrpl, acrs, acrspl, acrl, acrlpl, acrf, acrfpl
 #import "glossary-lib.typ": init-glossary, print-glossary, gls
 #import "locale.typ": TABLE_OF_CONTENTS, APPENDIX, REFERENCES
@@ -128,7 +128,7 @@
   let h2-size = 16pt
   let h3-size = 11pt
   let h4-size = 11pt
-  let page-grid = 16pt
+  let page-grid = 16pt  // vertical spacing on all pages
 
   
   // ---------- Basic Document Settings ---------------------------------------
@@ -242,16 +242,15 @@
   set text(
     font: body-font, 
     lang: language, 
-    size: body-size - 0.5pt,
+    size: body-size - 0.5pt,      // 0.5pt adjustment because of large x-hight
     top-edge: 0.75 * body-size, 
     bottom-edge: -0.25 * body-size,
   )
   set par(
-    spacing: page-grid + (page-grid - body-size),   // no clue, why not only `page-grid`
+    spacing: page-grid,
     leading: page-grid - body-size, 
     justify: true,
   )
-
 
   set page(
     margin: (top: 4cm, bottom: 3cm, left: 4cm, right: 3cm),
@@ -320,17 +319,38 @@
     ],
   )
 
-  // ---------- Heading Format ---------------------------------------
+  // ---------- Heading Format (H1-H4) ---------------------------------------
 
-  show heading: set text(weight: 700, fill: luma(80), font: heading-font)
+  show heading: set text(weight: "bold", fill: luma(80), font: heading-font)
   set heading(numbering: heading-numbering)
 
-  show heading.where(level: 1): it => {
-    pagebreak()
-    v(2em) + it + v(1em)
+  show heading: it => {
+    set par(leading: 4pt, justify: false)
+    text(it, top-edge: 0.75em, bottom-edge: -0.25em)
+    v(page-grid, weak: true)
   }
-  show heading.where(level: 2): it => v(1em) + it + v(0.5em)
-  show heading.where(level: 3): it => v(0.5em) + it + v(0.25em)
+
+  show heading.where(level: 1): it => {
+    set par(leading: 0pt, justify: false)
+    pagebreak()
+    v(page-grid * 10)
+    place(              // place heading number prominently at the upper right corner
+      top + right,
+      dx: 9pt,          // slight adjustment for optimal alignment with right margin
+      text(counter(heading).display(), 
+        size: page-grid * 10, weight: 900, luma(235), 
+      )
+    )
+    text(               // heading text on separate line
+      it.body, size: h1-size,
+      top-edge: 0.75em, 
+      bottom-edge: -0.25em,
+    )
+  }
+
+  show heading.where(level: 2): it => {v(16pt) + text(size: h2-size, it)}
+  show heading.where(level: 3): it => {v(16pt) + text(size: h3-size, it)}
+  show heading.where(level: 4): it => {v(16pt) + smallcaps(text(size: h4-size, weight: "semibold", it.body))}
 
 
   // ---------- Page Numbering (Preface) ---------------------------------------
@@ -365,8 +385,6 @@
 
   // ---------- Abstract ---------------------------------------
 
-  //set par(justify: true, leading: 1em)
-
   if (show-abstract and abstract != none) {
     align(center + horizon, heading(level: 1, numbering: none, outlined: false)[Abstract])
     text(abstract)
@@ -378,8 +396,6 @@
     v(18pt, weak: true)
     strong(it)
   }
-
-  //set par(leading: 0.65em)
 
   if (show-table-of-contents) {
     outline(
@@ -393,12 +409,6 @@
 
 
   // ========== DOCUMENT BODY ========================================
-
-  // set par(
-  //   leading: page-grid - body-size, 
-  //   spacing: page-grid + 5pt,
-  // )
-  //set block(spacing: 2em)
 
   // reset page numbering and set to main page numbering
   let main-numbering = "1 / 1"
