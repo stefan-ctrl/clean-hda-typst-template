@@ -1,4 +1,5 @@
 #import "@preview/codelst:2.0.1": *
+#import "@preview/hydra:0.5.1": hydra
 #import "acronym-lib.typ": init-acronyms, print-acronyms, acr, acrpl, acrs, acrspl, acrl, acrlpl, acrf, acrfpl
 #import "glossary-lib.typ": init-glossary, print-glossary, gls
 #import "locale.typ": TABLE_OF_CONTENTS, APPENDIX, REFERENCES
@@ -201,43 +202,6 @@
 
   // ---------- Page Setup ---------------------------------------
 
-  // set header properties
-  let display-header = if (header != none and ("display" in header)) {
-    header.display
-  } else {
-    true
-  }
-
-  let header-content = if (header != none and ("content" in header)) {
-    header.content
-  } else {
-    none
-  }
-
-  let show-header-chapter = if (header != none and ("show-chapter" in header)) {
-    header.show-chapter
-  } else {
-    true
-  }
-
-  let show-header-left-logo = if (header != none and ("show-left-logo" in header)) {
-    header.show-left-logo
-  } else {
-    true
-  }
-
-  let show-header-right-logo = if (header != none and ("show-right-logo" in header)) {
-    header.show-right-logo
-  } else {
-    true
-  }
-
-  let show-header-divider = if (header != none and ("show-divider" in header)) {
-    header.show-divider
-  } else {
-    true
-  }
-
   // adapt body text layout to basic measures
   set text(
     font: body-font, 
@@ -254,69 +218,23 @@
 
   set page(
     margin: (top: 4cm, bottom: 3cm, left: 4cm, right: 3cm),
-    header: [
-      #set block(spacing: 0.75em)
-      #context {
-        if (display-header) {
-          if (header-content != none) {
-            header.content
-          } else {
-            grid(
-              columns: (1fr, auto),
-              align: (left, right),
-              gutter: 2em,
-              if (show-header-chapter) {
-                align(left + bottom)[
-                  #let headings = query(heading.where(level: 1))
-                  #if headings.len() > 0 and not headings.any(it => (it.location().page() == here().page())) {
-                    let elems = query(selector(heading.where(level: 1)).before(here()))
-
-                    if (elems.len() > 0) {
-                      let current-heading = elems.last()
-                      let heading-counter = if current-heading.numbering == none {
-                        none
-                      } else {
-                        counter(heading).get().first()
-                      }
-
-                      [#heading-counter #current-heading.body]
-                    }
-                  } else {
-                    let elems = query(selector(heading.where(level: 1)).after(here()))
-
-                    if (elems.len() > 0) {
-                      let current-heading = elems.first()
-                      let heading-counter = if current-heading.numbering == none {
-                        none
-                      } else {
-                        counter(heading).get().first() + 1
-                      }
-
-                      [#heading-counter #current-heading.body]
-                    }
-                  }
-                ]
-              },
-              stack(
-                dir: ltr,
-                spacing: 1em,
-                if (show-header-left-logo and logo-left != none) {
-                  set image(height: left-logo-height / 2)
-                  logo-left
-                },
-                if (show-header-right-logo and logo-right != none) {
-                  set image(height: right-logo-height / 2)
-                  logo-right
-                },
-              ),
-            )
-            if (show-header-divider) {
-              line(length: 100%)
-            }
-          }
-        }
-      }
-    ],
+    header:
+      grid(
+        columns: (1fr, 1fr),
+        align: (left, right),
+        row-gutter: 0.5em,
+        smallcaps(text(font: heading-font, size: body-size, 
+          context {
+            hydra(1, display: (_, it) => it.body, use-last: true, skip-starting: false)
+          },
+        )),
+        text(font: heading-font, size: body-size, 
+          number-type: "lining",
+          counter(page).display(),
+        ),
+        grid.cell(colspan: 2, line(length: 100%, stroke: 0.5pt)),
+      ),
+      header-ascent: page-grid,
   )
 
   // ---------- Heading Format (H1-H4) ---------------------------------------
@@ -338,6 +256,7 @@
       top + right,
       dx: 9pt,          // slight adjustment for optimal alignment with right margin
       text(counter(heading).display(), 
+        top-edge: "bounds",
         size: page-grid * 10, weight: 900, luma(235), 
       )
     )
@@ -360,24 +279,24 @@
     preface-numbering = page-numbering.preface
   }
 
-  set page(
-    // necessary to apply numbering in the table of contents
-    numbering: preface-numbering,
-    footer: context {
-      let display-total-page-number = preface-numbering.clusters().filter(c => c in page-numbering-symbols).len() >= 2
+  // set page(
+  //   // necessary to apply numbering in the table of contents
+  //   numbering: preface-numbering,
+  //   footer: context {
+  //     let display-total-page-number = preface-numbering.clusters().filter(c => c in page-numbering-symbols).len() >= 2
 
-      align(
-        numbering-alignment,
-        numbering(
-          preface-numbering,
-          ..counter(page).get(),
-          ..if display-total-page-number {
-            counter(page).at(<numbering-preface-end>)
-          },
-        ),
-      )
-    },
-  )
+  //     align(
+  //       numbering-alignment,
+  //       numbering(
+  //         preface-numbering,
+  //         ..counter(page).get(),
+  //         ..if display-total-page-number {
+  //           counter(page).at(<numbering-preface-end>)
+  //         },
+  //       ),
+  //     )
+  //   },
+  // )
   counter(page).update(1)
 
 
@@ -416,24 +335,24 @@
     main-numbering = page-numbering.main
   }
 
-  set page(
-    // necessary to apply numbering in the table of contents
-    numbering: main-numbering,
-    footer: context {
-      let display-total-page-number = main-numbering.clusters().filter(c => c in page-numbering-symbols).len() >= 2
+  // set page(
+  //   // necessary to apply numbering in the table of contents
+  //   numbering: main-numbering,
+  //   footer: context {
+  //     let display-total-page-number = main-numbering.clusters().filter(c => c in page-numbering-symbols).len() >= 2
 
-      align(
-        numbering-alignment,
-        numbering(
-          main-numbering,
-          ..counter(page).get(),
-          ..if display-total-page-number {
-            counter(page).at(<numbering-main-end>)
-          },
-        ),
-      )
-    },
-  )
+  //     align(
+  //       numbering-alignment,
+  //       numbering(
+  //         main-numbering,
+  //         ..counter(page).get(),
+  //         ..if display-total-page-number {
+  //           counter(page).at(<numbering-main-end>)
+  //         },
+  //       ),
+  //     )
+  //   },
+  // )
   counter(page).update(1)
 
   body
@@ -445,24 +364,24 @@
     appendix-numbering = page-numbering.appendix
   }
 
-  set page(
-    // necessary to apply numbering in the table of contents
-    numbering: appendix-numbering,
-    footer: context {
-      let display-total-page-number = appendix-numbering.clusters().filter(c => c in page-numbering-symbols).len() >= 2
+  // set page(
+  //   // necessary to apply numbering in the table of contents
+  //   numbering: appendix-numbering,
+  //   footer: context {
+  //     let display-total-page-number = appendix-numbering.clusters().filter(c => c in page-numbering-symbols).len() >= 2
 
-      align(
-        numbering-alignment,
-        numbering(
-          appendix-numbering,
-          ..counter(page).get(),
-          ..if display-total-page-number {
-            counter(page).at(<numbering-appendix-end>)
-          },
-        ),
-      )
-    },
-  )
+  //     align(
+  //       numbering-alignment,
+  //       numbering(
+  //         appendix-numbering,
+  //         ..counter(page).get(),
+  //         ..if display-total-page-number {
+  //           counter(page).at(<numbering-appendix-end>)
+  //         },
+  //       ),
+  //     )
+  //   },
+  // )
   counter(page).update(1)
 
 
