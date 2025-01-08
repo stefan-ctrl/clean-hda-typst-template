@@ -5,11 +5,9 @@
   date,
   title-font,
   language,
-  left-logo-height,
   logo-left,
   logo-right,
   many-authors,
-  right-logo-height,
   supervisor,
   title,
   type-of-degree,
@@ -40,7 +38,7 @@
     place(                                
       top + center,
       dy: -3 * page-grid,
-      box(logo-left, height: left-logo-height) 
+      box(logo-left, height: 3 * page-grid) 
     )
   } else if logo-left != none and logo-right != none {    // two logos: left & right
     place(
