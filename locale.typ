@@ -118,8 +118,8 @@ The content of this thesis may not be made available, either in its entirety or 
 )
 
 #let ACRONYMS = (
-  "de": "Abkürzungsverzeichnis",
-  "en": "List of Acronyms",
+  "de": "Abkürzungen",
+  "en": "Acronyms",
 )
 
 #let GLOSSARY = (
