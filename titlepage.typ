@@ -56,7 +56,7 @@
   // ---------- Title ---------------------------------------
 
   v(7 * page-grid)     
-  text(weight: "bold", size: 1.5 * page-grid, title)
+  text(weight: "semibold", size: 1.5 * page-grid, title)
   v(page-grid)
   
   // ---------- Confidentiality Marker (optional) ---------------------------------------
