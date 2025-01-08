@@ -108,8 +108,13 @@ The content of this thesis may not be made available, either in its entirety or 
 )
 
 #let TABLE_OF_CONTENTS = (
-  "de": "Inhaltsverzeichnis",
-  "en": "Table of Contents",
+  "de": "Inhalt",
+  "en": "Contents",
+)
+
+#let ABSTRACT = (
+  "de": "Zusammenfassung",
+  "en": "Abstract",
 )
 
 #let ACRONYMS = (

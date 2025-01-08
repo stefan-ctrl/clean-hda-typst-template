@@ -136,6 +136,7 @@
 
   set document(title: title, author: authors.map(author => author.name))
   let many-authors = authors.len() > 3
+  let in-frontmatter = state("in-frontmatter", true)    // to control page number format in frontmatter
 
   // define logo size with given ration
   let left-logo-height = 2.4cm // left logo is always 2.4cm high
@@ -200,6 +201,7 @@
       page-grid,
     )
   }
+  counter(page).update(1)  
 
   // ---------- Page Setup ---------------------------------------
 
@@ -231,16 +233,69 @@
         )),
         text(font: heading-font, size: body-size, 
           number-type: "lining",
-          counter(page).display(),
+          context {if in-frontmatter.get() {
+              counter(page).display("i")      // roman page numbers for the frontmatter
+            } else {
+              counter(page).display("1")      // arabic page numbers for the rest of the document
+            }
+          }
         ),
         grid.cell(colspan: 2, line(length: 100%, stroke: 0.5pt)),
       ),
       header-ascent: page-grid,
   )
 
-  // ---------- Heading Format (H1-H4) ---------------------------------------
+
+  // ========== FRONTMATTER ========================================
+  
+  // ---------- Heading Format (Part I) ---------------------------------------
 
   show heading: set text(weight: "bold", fill: luma(80), font: heading-font)
+  show heading.where(level: 1): it => {v(2 * page-grid) + text(size: 2 * page-grid, it)}   // only frontmatter
+
+  // ---------- Abstract ---------------------------------------
+
+  if (show-abstract and abstract != none) {
+    heading(level: 1, numbering: none, outlined: false, ABSTRACT.at(language))
+    text(abstract)
+    pagebreak()
+  }
+
+  // ---------- Outline ---------------------------------------
+
+  // top-level TOC entries in bold without filling
+  show outline.entry.where(level: 1): it => {
+    v(page-grid, weak: true)
+    set text(font: heading-font, weight: "semibold", size: body-size)
+    it.body
+    box(width: 1fr,)
+    text(weight: "semibold", it.page)
+  }
+
+  // other TOC entries in regular with adapted filling
+  show outline.entry.where(level: 2).or(outline.entry.where(level: 3)): it => {
+    set text(font: heading-font, size: body-size)
+    it.body + "  "
+    box(width: 1fr, repeat([.], gap: 2pt), baseline: 30%, height: body-size + 1pt)
+    "  " + it.page
+  }
+
+  if (show-table-of-contents) {
+    outline(
+      title: TABLE_OF_CONTENTS.at(language),
+      indent: auto,
+      depth: toc-depth,
+    )
+  }
+
+  in-frontmatter.update(false)  // end of frontmatter
+  counter(page).update(0)       // so the first chapter starts at page 1 (now in arabic numbers)
+
+
+  // ========== DOCUMENT BODY ========================================
+
+ // ---------- Heading Format (Part II: H1-H4) ---------------------------------------
+
   set heading(numbering: heading-numbering)
 
   show heading: it => {
@@ -272,118 +327,9 @@
   show heading.where(level: 3): it => {v(16pt) + text(size: h3-size, it)}
   show heading.where(level: 4): it => {v(16pt) + smallcaps(text(size: h4-size, weight: "semibold", it.body))}
 
-
-  // ---------- Page Numbering (Preface) ---------------------------------------
-
-  let preface-numbering = "I"
-  if ("preface" in page-numbering) {
-    preface-numbering = page-numbering.preface
-  }
-
-  // set page(
-  //   // necessary to apply numbering in the table of contents
-  //   numbering: preface-numbering,
-  //   footer: context {
-  //     let display-total-page-number = preface-numbering.clusters().filter(c => c in page-numbering-symbols).len() >= 2
-
-  //     align(
-  //       numbering-alignment,
-  //       numbering(
-  //         preface-numbering,
-  //         ..counter(page).get(),
-  //         ..if display-total-page-number {
-  //           counter(page).at(<numbering-preface-end>)
-  //         },
-  //       ),
-  //     )
-  //   },
-  // )
-  counter(page).update(1)
-
-
-  // ========== FRONTMATTER ========================================
-
-  // ---------- Abstract ---------------------------------------
-
-  if (show-abstract and abstract != none) {
-    align(center + horizon, heading(level: 1, numbering: none, outlined: false)[Abstract])
-    text(abstract)
-  }
-
-  // ---------- Outline ---------------------------------------
-
-  show outline.entry.where(level: 1): it => {
-    v(18pt, weak: true)
-    strong(it)
-  }
-
-  if (show-table-of-contents) {
-    outline(
-      title: TABLE_OF_CONTENTS.at(language),
-      indent: auto,
-      depth: toc-depth,
-    )
-  }
-
-  [#metadata(none)<numbering-preface-end>]
-
-
-  // ========== DOCUMENT BODY ========================================
-
-  // reset page numbering and set to main page numbering
-  let main-numbering = "1 / 1"
-  if ("main" in page-numbering) {
-    main-numbering = page-numbering.main
-  }
-
-  // set page(
-  //   // necessary to apply numbering in the table of contents
-  //   numbering: main-numbering,
-  //   footer: context {
-  //     let display-total-page-number = main-numbering.clusters().filter(c => c in page-numbering-symbols).len() >= 2
-
-  //     align(
-  //       numbering-alignment,
-  //       numbering(
-  //         main-numbering,
-  //         ..counter(page).get(),
-  //         ..if display-total-page-number {
-  //           counter(page).at(<numbering-main-end>)
-  //         },
-  //       ),
-  //     )
-  //   },
-  // )
-  counter(page).update(1)
+ // ---------- Body Text ---------------------------------------
 
   body
-
-  [#metadata(none)<numbering-main-end>]
-  // reset page numbering and set to appendix page numbering
-  let appendix-numbering = "a"
-  if ("appendix" in page-numbering) {
-    appendix-numbering = page-numbering.appendix
-  }
-
-  // set page(
-  //   // necessary to apply numbering in the table of contents
-  //   numbering: appendix-numbering,
-  //   footer: context {
-  //     let display-total-page-number = appendix-numbering.clusters().filter(c => c in page-numbering-symbols).len() >= 2
-
-  //     align(
-  //       numbering-alignment,
-  //       numbering(
-  //         appendix-numbering,
-  //         ..counter(page).get(),
-  //         ..if display-total-page-number {
-  //           counter(page).at(<numbering-appendix-end>)
-  //         },
-  //       ),
-  //     )
-  //   },
-  // )
-  counter(page).update(1)
 
 
   // ========== APPENDIX ========================================
@@ -447,5 +393,4 @@
     )
   }
 
-  [#metadata(none)<numbering-appendix-end>]
 }
