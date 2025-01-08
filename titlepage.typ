@@ -56,7 +56,7 @@
   // ---------- Title ---------------------------------------
 
   v(7 * page-grid)     
-  text(weight: "semibold", size: 1.5 * page-grid, title)
+  text(weight: "bold", fill: luma(80), size: 1.5 * page-grid, title)
   v(page-grid)
   
   // ---------- Confidentiality Marker (optional) ---------------------------------------
@@ -155,7 +155,7 @@
       align: (right, left),
 
       // submission date
-      text(weight: "semibold", TITLEPAGE_DATE.at(language)),
+      text(weight: "bold", fill: luma(80), TITLEPAGE_DATE.at(language)),
       text(
         if (type(date) == datetime) {
           date.display(date-format)
@@ -165,7 +165,7 @@
       ),
 
       // students
-      align(text(weight: "semibold", TITLEPAGE_STUDENT_ID.at(language)), top),
+      align(text(weight: "bold", fill: luma(80), TITLEPAGE_STUDENT_ID.at(language)), top),
       stack(
         dir: ttb,
         for author in authors {
@@ -176,7 +176,7 @@
 
       // company
       if (not at-university) {
-        align(text(weight: "semibold", TITLEPAGE_COMPANY.at(language)), top)
+        align(text(weight: "bold", fill: luma(80), TITLEPAGE_COMPANY.at(language)), top)
       },
       if (not at-university) {
         stack(
@@ -232,7 +232,7 @@
 
       // company supervisor
       if ("company" in supervisor) {
-        text(weight: "semibold", TITLEPAGE_COMPANY_SUPERVISOR.at(language))
+        text(weight: "bold", fill: luma(80), TITLEPAGE_COMPANY_SUPERVISOR.at(language))
       },
       if ("company" in supervisor and type(supervisor.company) == str) {
         text(supervisor.company)
@@ -241,7 +241,7 @@
       // university supervisor
       if ("university" in supervisor) {
         text(
-          weight: "semibold",
+          weight: "bold", fill: luma(80), 
           TITLEPAGE_SUPERVISOR.at(language) +
           university-short +
           [:]
