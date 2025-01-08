@@ -137,6 +137,7 @@
   set document(title: title, author: authors.map(author => author.name))
   let many-authors = authors.len() > 3
   let in-frontmatter = state("in-frontmatter", true)    // to control page number format in frontmatter
+  let in-body = state("in-body", true)                 // to control heading formatting in/outside of body
 
   // define logo size with given ration
   // let left-logo-height = 2.4cm // left logo is always 2.4cm high
@@ -249,7 +250,7 @@
   // ---------- Heading Format (Part I) ---------------------------------------
 
   show heading: set text(weight: "bold", fill: luma(80), font: heading-font)
-  show heading.where(level: 1): it => {v(2 * page-grid) + text(size: 2 * page-grid, it)}   // only frontmatter
+  show heading.where(level: 1): it => {v(2 * page-grid) + text(size: 2 * page-grid, it)}
 
   // ---------- Abstract ---------------------------------------
 
@@ -289,7 +290,6 @@
   in-frontmatter.update(false)  // end of frontmatter
   counter(page).update(0)       // so the first chapter starts at page 1 (now in arabic numbers)
 
-
   // ========== DOCUMENT BODY ========================================
 
  // ---------- Heading Format (Part II: H1-H4) ---------------------------------------
@@ -305,20 +305,27 @@
   show heading.where(level: 1): it => {
     set par(leading: 0pt, justify: false)
     pagebreak()
-    v(page-grid * 10)
-    place(              // place heading number prominently at the upper right corner
-      top + right,
-      dx: 9pt,          // slight adjustment for optimal alignment with right margin
-      text(counter(heading).display(), 
-        top-edge: "bounds",
-        size: page-grid * 10, weight: 900, luma(235), 
-      )
-    )
-    text(               // heading text on separate line
-      it.body, size: h1-size,
-      top-edge: 0.75em, 
-      bottom-edge: -0.25em,
-    )
+    context{ 
+      if in-body.get() {
+        v(page-grid * 10)
+        place(              // place heading number prominently at the upper right corner
+          top + right,
+          dx: 9pt,          // slight adjustment for optimal alignment with right margin
+          text(counter(heading).display(), 
+            top-edge: "bounds",
+            size: page-grid * 10, weight: 900, luma(235), 
+          )
+        )
+        text(               // heading text on separate line
+          it.body, size: h1-size,
+          top-edge: 0.75em, 
+          bottom-edge: -0.25em,
+        )
+      } else {
+        v(2 * page-grid) 
+        text(size: 2 * page-grid, counter(heading).display() + h(0.5em) + it.body)   // appendix
+      }
+    }
   }
 
   show heading.where(level: 2): it => {v(16pt) + text(size: h2-size, it)}
@@ -332,8 +339,13 @@
 
   // ========== APPENDIX ========================================
 
+  in-body.update(false)
+  set heading(numbering: "A.1")
+  counter(heading).update(0)
+
   // ---------- Bibliography ---------------------------------------
 
+  show std-bibliography: set heading(numbering: "A.1")
   if bibliography != none {
     set std-bibliography(
       title: REFERENCES.at(language),
@@ -342,10 +354,10 @@
     bibliography
   }
 
-  if (appendix != none) {
-    heading(level: 1, numbering: none)[#APPENDIX.at(language)]
-    appendix
-  }
+  // if (appendix != none) {
+  //   heading(level: 1, numbering: none)[#APPENDIX.at(language)]
+  //   appendix
+  // }
 
   // ---------- Acronyms & Glossary ---------------------------------------
 
@@ -357,10 +369,14 @@
     print-glossary(language, glossary-spacing)
   }
 
+
+  // ========== LEGAL BACKMATTER ========================================
+
+  set heading(numbering: it => h(-18pt) + "", outlined: false)
+
   // ---------- Confidentiality Statement ---------------------------------------
 
   if (not at-university and show-confidentiality-statement) {
-    pagebreak()
     confidentiality-statement(
       authors,
       title,
@@ -377,7 +393,6 @@
   // ---------- Declaration Of Authorship ---------------------------------------
 
   if (show-declaration-of-authorship) {
-    pagebreak()
     declaration-of-authorship(
       authors,
       title,

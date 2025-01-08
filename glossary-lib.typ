@@ -15,7 +15,7 @@
 
 // Print an index of all the acronyms and their definitions.
 #let print-glossary(language, glossary-spacing) = {
-  heading(level: 1, outlined: false, numbering: none)[#GLOSSARY.at(language)]
+  heading(level: 1)[#GLOSSARY.at(language)]
 
   context {
     let glossary = glossary-state.get()

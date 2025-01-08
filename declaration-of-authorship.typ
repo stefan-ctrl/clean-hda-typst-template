@@ -11,8 +11,7 @@
   city,
   date-format,
 ) = {
-  v(2em)
-  text(size: 20pt, weight: "bold", DECLARATION_OF_AUTHORSHIP_TITLE.at(language))
+  heading(level: 1, DECLARATION_OF_AUTHORSHIP_TITLE.at(language))
   v(1em)
 
   if (declaration-of-authorship-content != none) {
