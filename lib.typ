@@ -139,14 +139,6 @@
   let in-frontmatter = state("in-frontmatter", true)    // to control page number format in frontmatter
   let in-body = state("in-body", true)                 // to control heading formatting in/outside of body
 
-  // define logo size with given ration
-  // let left-logo-height = 2.4cm // left logo is always 2.4cm high
-  // let right-logo-height = 2.4cm // right logo defaults to 1.2cm but is adjusted below
-  // let logo-ratio = logo-size-ratio.split(":")
-  // if (logo-ratio.len() == 2) {
-  //   right-logo-height = right-logo-height * (float(logo-ratio.at(1)) / float(logo-ratio.at(0)))
-  // }
-
   init-acronyms(acronyms)
   init-glossary(glossary)
 
