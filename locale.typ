@@ -1,17 +1,7 @@
-// #let TITLEPAGE_SECTION_A = (
-//   "de": "für den Erwerb des",
-//   "en": "for the",
-// )
-
 #let TITLEPAGE_SECTION_B = (
   "de": "Studiengang ",
   "en": "Course of Studies ",
 )
-
-// #let TITLEPAGE_SECTION_C = (
-//   "de": "an der ",
-//   "en": "at the ",
-// )
 
 #let TITLEPAGE_DATE = (
   "de": "Eingereicht am:",
@@ -100,11 +90,6 @@ The content of this thesis may not be made available, either in its entirety or 
 #let AND = (
   "de": " und ",
   "en": " and ",
-)
-
-#let BY = (
-  "de": "von",
-  "en": "by",
 )
 
 #let TABLE_OF_CONTENTS = (

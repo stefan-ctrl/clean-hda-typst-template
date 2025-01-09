@@ -5,15 +5,11 @@
   at-university,
   confidentiality-marker,
   type-of-thesis,
-  type-of-degree,
   show-confidentiality-statement,
   show-declaration-of-authorship,
   show-table-of-contents,
   show-acronyms,
   show-abstract,
-  header,
-  numbering-alignment,
-  toc-depth,
   acronym-spacing,
   glossary-spacing,
   abstract,
@@ -28,19 +24,12 @@
   bib-style,
   logo-left,
   logo-right,
-  logo-size-ratio,
   university-short,
-  heading-numbering,
   math-numbering,
   ignored-link-label-keys-for-highlighting,
-  page-numbering,
 ) = {
   if (title == none or title == "") {
     panic("Title is missing. Specify a title in the 'title' attribute of the template.")
-  }
-
-  if (header != none and type(header) != dictionary) {
-    panic("Header is invalid. Specify a dictionary in the 'header' attribute of the template. The following attributes can be set: 'display', 'show-chapter', 'show-left-logo', 'show-right-logo', 'show-divider', 'content'.")
   }
 
   let boolean-attributes = (
@@ -72,27 +61,9 @@
 
   let optional-string-attributes = (
     type-of-thesis: type-of-thesis,
-    type-of-degree: type-of-degree,
     bib-style: bib-style,
-    heading-numbering: heading-numbering,
     math-numbering: math-numbering,
   )
-
-  if (page-numbering != none and type(page-numbering) != dictionary) {
-    panic("Page numbering is invalid. Specify a dictionary in the 'page-numbering' attribute of the template.")
-  }
-
-  if ("preface" in page-numbering) {
-    optional-string-attributes.insert("preface (page-numbering)", page-numbering.preface)
-  }
-
-  if ("main" in page-numbering) {
-    optional-string-attributes.insert("main (page-numbering)", page-numbering.main)
-  }
-
-  if ("appendix" in page-numbering) {
-    optional-string-attributes.insert("appendix (page-numbering)", page-numbering.appendix)
-  }
 
   for (key, attribute) in optional-string-attributes {
     if (attribute != none and (type(attribute) != str or attribute.len() == 0)) {
@@ -143,7 +114,7 @@
   }
 
   if (
-    (type-of-thesis != none and type-of-thesis != "") or (type-of-degree != none and type-of-degree != "") or (
+    (type-of-thesis != none and type-of-thesis != "") or (
       confidentiality-marker.display == true
     )
   ) {
@@ -151,7 +122,7 @@
   }
 
   if (authors.len() > max-authors) {
-    panic("Too many authors. Specify a maximum of " + str(max-authors) + " authors in the 'authors' attribute of the template. To increase the maximum number of authors (max. 8), change one of the following attributes: 'at-university', 'type-of-thesis', 'type-of-degree'. (See the package documentation for more information.)")
+    panic("Too many authors. Specify a maximum of " + str(max-authors) + " authors in the 'authors' attribute of the template. To increase the maximum number of authors (max. 8), change one of the following attributes: 'at-university', 'type-of-thesis'. (See the package documentation for more information.)")
   }
 
   for author in authors {
@@ -194,14 +165,6 @@
     panic("Language is invalid. Specify 'en' for English or 'de' for German in the 'language' attribute of the template.")
   }
 
-  if (type(numbering-alignment) != alignment) {
-    panic("Numbering alignment is invalid. Specify a alignment in the 'numbering-alignment' attribute of the template.")
-  }
-
-  if (type(toc-depth) != int) {
-    panic("TOC depth is invalid. Specify an integer in the 'toc-depth' attribute of the template.")
-  }
-
   if (
     type(date) != datetime and (
       type(date) != array or date.len() != 2 or type(date.at(0)) != datetime or type(date.at(1)) != datetime
@@ -219,16 +182,6 @@
     if (type(attribute) != content and attribute != none) {
       panic("Attribute '" + key + "' is invalid. Specify an image in the '" + key + "' attribute of the template.")
     }
-  }
-
-  if (type(logo-size-ratio) != str or logo-size-ratio.len() == 0) {
-    panic("Logo size ratio is missing. Specify a ratio in the 'logo-size-ratio' attribute of the template.")
-  }
-
-  let ratio = logo-size-ratio.split(":")
-
-  if (ratio.len() != 2) {
-    panic("Invalid ratio. Specify a ratio in the format 'x:y' in the 'logo-size-ratio' attribute of the template.")
   }
 
   if (type(bibliography) != content and bibliography != none) {

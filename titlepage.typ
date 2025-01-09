@@ -10,7 +10,6 @@
   many-authors,
   supervisor,
   title,
-  type-of-degree,
   type-of-thesis,
   university,
   university-location,

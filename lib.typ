@@ -11,33 +11,6 @@
 // Workaround for the lack of an `std` scope.
 #let std-bibliography = bibliography
 
-#let page-numbering-symbols = (
-  "1",
-  "a",
-  "A",
-  "i",
-  "I",
-  "α",
-  "Α",
-  "*",
-  "א",
-  "一",
-  "壹",
-  "あ",
-  "い",
-  "ア",
-  "イ",
-  "ㄱ",
-  "가",
-  "\u{0661}",
-  "\u{06F1}",
-  "\u{0967}",
-  "\u{09E7}",
-  "\u{0995}",
-  "①",
-  "⓵",
-)
-
 #let supercharged-dhbw(
   title: none,
   authors: (:),
@@ -45,21 +18,17 @@
   at-university: none,
   confidentiality-marker: (display: false),
   type-of-thesis: none,
-  type-of-degree: none,
   show-confidentiality-statement: true,
   show-declaration-of-authorship: true,
   show-table-of-contents: true,
   show-acronyms: true,
   show-abstract: true,
-  numbering-alignment: center,
-  toc-depth: 3,
   acronym-spacing: 5em,
   glossary-spacing: 1.5em,
   abstract: none,
   appendix: none,
   acronyms: none,
   glossary: none,
-  header: none,
   confidentiality-statement-content: none,
   declaration-of-authorship-content: none,
   titlepage-content: none,
@@ -72,12 +41,9 @@
   date-format: "[day].[month].[year]",
   bibliography: none,
   bib-style: "ieee",
-  heading-numbering: "1.1",
   math-numbering: "(1)",
-  page-numbering: (preface: "I", main: "1 / 1", appendix: "a"),
   logo-left: image("dhbw.svg"),
   logo-right: none,
-  logo-size-ratio: "1:1",
   ignored-link-label-keys-for-highlighting: (),
   body,
 ) = {
@@ -89,15 +55,11 @@
     at-university,
     confidentiality-marker,
     type-of-thesis,
-    type-of-degree,
     show-confidentiality-statement,
     show-declaration-of-authorship,
     show-table-of-contents,
     show-acronyms,
     show-abstract,
-    header,
-    numbering-alignment,
-    toc-depth,
     acronym-spacing,
     glossary-spacing,
     abstract,
@@ -112,12 +74,9 @@
     bib-style,
     logo-left,
     logo-right,
-    logo-size-ratio,
     university-short,
-    heading-numbering,
     math-numbering,
     ignored-link-label-keys-for-highlighting,
-    page-numbering,
   )
 
   // ---------- Fonts & Related Measures ---------------------------------------
@@ -180,7 +139,6 @@
       many-authors,
       supervisor,
       title,
-      type-of-degree,
       type-of-thesis,
       university,
       university-location,
@@ -275,7 +233,6 @@
     outline(
       title: TABLE_OF_CONTENTS.at(language),
       indent: auto,
-      depth: toc-depth,
     )
   }
 
@@ -286,7 +243,7 @@
 
  // ---------- Heading Format (Part II: H1-H4) ---------------------------------------
 
-  set heading(numbering: heading-numbering)
+  set heading(numbering: "1.1.1")
 
   show heading: it => {
     set par(leading: 4pt, justify: false)
