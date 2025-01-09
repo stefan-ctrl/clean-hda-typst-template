@@ -303,11 +303,6 @@
     bibliography
   }
 
-  // if (appendix != none) {
-  //   heading(level: 1, numbering: none)[#APPENDIX.at(language)]
-  //   appendix
-  // }
-
   // ---------- Acronyms & Glossary ---------------------------------------
 
   if (show-acronyms and acronyms != none and acronyms.len() > 0) {
@@ -318,6 +313,11 @@
     print-glossary(language, glossary-spacing)
   }
 
+  // ---------- Appendix (other contents) ---------------------------------------
+
+  if (appendix != none) {       // the user has to provide heading(s)
+    appendix
+  }
 
   // ========== LEGAL BACKMATTER ========================================
 
