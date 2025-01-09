@@ -1,0 +1,13 @@
+# Introduction and Motivation
+Documents like Bachelor theses and similar works which are currently produced at DHBW could have a higher degree of usability for their end-users (i.e. the readers). There exists a recommendation at DHBW on how to structure and design such documents. I have the impression that some of the usability issues are rooted directly within these recommendations, but others stem from the fact that some recommendations are just not thoroughly followed.
+
+Therefore I have created the "*Clean DHBW Typst Template*", in order to give an example on how an improved document structure and layout could look like. At the same time it is not just a "show case", but a working Typst template, which can be used out-of-the-box to create such "improved documents". Therefore I encourage all students at DHBW to use it. 
+
+Of course such a concept is always a bit biased in some way. But I explain the whys and hows below and I'm looking forward to the discussions it will provoke 😃. The name has been chosen in the sense "clean" is used in Software Engineering in terms like *clean architecture* or *clean code*, where it describes concepts and structures which are easy to understand, to use und to maintain. Furthermore they have a clear separation of concerns and responsibilities – for the case at hand that means: the template defines the typography, whereas the author is responsible for the contents.
+
+There exists already a Typst template for these sorts of documents: It's the ["supercharged-dhbw"-template](https://github.com/DannySeidel/typst-dhbw-template) by Danny Seidel. It is a great piece of work with a lot of functionality covering a broad variety of use cases. But with respect to structure and layout, it implements exactly the above criticized current state (which is without doubt what many people want or maybe have to use). I discussed with Danny on how to realize further development. We agreed to keep `supercharged-dhbw` more or less as-is in order to reflect current state and needs and in consequence to build this new template as a fork of his work. This gave me also  more freedom to go new ways.
+
+Here you can find further explanations about the design of the template:
+- [Assumptions](docs/assumptions.md) made for the development
+- [Usability issues in detail](docs/usability-issues.md)
+- [Design decisions explained](docs/design-decisions-explained.md)
