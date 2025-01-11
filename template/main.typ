@@ -1,82 +1,84 @@
-#import "@preview/supercharged-dhbw:3.4.1": *
+#import "../lib.typ": *
 #import "acronyms.typ": acronyms
 #import "glossary.typ": glossary
 
 #show: supercharged-dhbw.with(
-  title: "Exploration of Typst for the Composition of a University Thesis",
+  title: "Evaluation von Typst zur Erstellung einer Abschlussarbeit",
   authors: (
-    (name: "Max Mustermann", student-id: "7654321", course: "TIS21", course-of-studies: "IT-Security", company: (
-      (name: "YXZ GmbH", post-code: "70435", city: "Stuttgart")
+    (name: "Max Mustermann", student-id: "7654321", course: "TINF22B2", course-of-studies: "Informatik", company: (
+      (name: "ABC GmbH", post-code: "76131", city: "Karlsruhe")
     )),
-    (name: "Juan Pérez", student-id: "1234567", course: "TIM21", course-of-studies: "Mobile Computer Science", company: (
-      (name: "ABC S.L.", post-code: "08005", city: "Barcelona", country: "Spain")
-    )),
+    // (name: "Juan Pérez", student-id: "1234567", course: "TIM21", course-of-studies: "Mobile Computer Science", company: (
+    //   (name: "ABC S.L.", post-code: "08005", city: "Barcelona", country: "Spain")
+    // )),
   ),
+  type-of-thesis: "Bachelorarbeit",
   acronyms: acronyms, // displays the acronyms defined in the acronyms dictionary
   at-university: false, // if true the company name on the title page and the confidentiality statement are hidden
   bibliography: bibliography("sources.bib"),
   date: datetime.today(),
   glossary: glossary, // displays the glossary terms defined in the glossary dictionary
-  language: "en", // en, de
-  supervisor: (company: "John Appleseed"),
-  university: "Cooperative State University Baden-Württemberg",
-  university-location: "Ravensburg Campus Friedrichshafen",
+  language: "de", // en, de
+  supervisor: (company: "John Appleseed", university: "Prof. Dr. Daniel Düsentrieb"),
+  university: "Duale Hochschule Baden-Württemberg",
+  university-location: "Karlsruhe",
   university-short: "DHBW",
-  // for more options check the package documentation (https://typst.app/universe/package/supercharged-dhbw)
+  // for more options check the package documentation (https://typst.app/universe/package/clean-dhbw)
 )
 
 // Edit this content to your liking
 
-= Introduction
+= Einleitung
 
 #lorem(100)
 
-#lorem(100)
+#lorem(80)
 
-#lorem(100)
+#lorem(120)
 
-= Examples
+= Erläuterungen
 
-#lorem(30)
+Im folgenden werden einige nützliche Elemente und Funktionen zum Erstellen von Typst-Dokumenten mit diesem Template erläutert.
 
-== Acronyms
+== Abkürzungen
 
-Use the `acr` function to insert acronyms, which looks like this #acr("HTTP").
+Verwende die `acr`-Funktion und deren Geschwister `acrpl`, `acrs` und `acrspl`, um Abkürzungen aus dem Abkürzungsverzeichnis einzufügen. Beispiele dafür sind: 
 
-#acrlpl("API") are used to define the interaction between different software systems.
+- #acr("HTTP") – `acr`: Singular mit Erläuterung
+- #acrpl("API") – `acrpl`: Plural mit Erläuterung
+- #acrs("REST") - `acrs`: Singular ohne Erläuterung
+- #acrspl("API") – `acrspl`: Plural ohne Erläuterung
 
-#acrs("REST") is an architectural style for networked applications.
+== Glossar
 
-== Glossary
+Verwende die `gls`-Funktion, um Ausdrücke aus dem Glossar einzufügen, die dann dorthin verlinkt werden. Ein Beispiel dafür ist: 
 
-Use the `gls` function to insert glossary terms, which looks like this:
+- Eine #gls("Softwareschnittstelle") ist ein logischer Berührungspunkt in einem Softwaresystem. Sie ermöglicht und regelt den Austausch von Kommandos und Daten zwischen verschiedenen Prozessen und Komponenten.
 
-A #gls("Vulnerability") is a weakness in a system that can be exploited.
+== Listen
 
-== Lists
+Es gibt Aufzählungslisten oder nummerierte Listen:
 
-Create bullet lists or numbered lists.
+- Dies
+- ist eine
+- Aufzählungsliste
 
-- This
-- is a
-- bullet list
++ Und
++ hier wird
++ alles nummeriert.
 
-+ It also
-+ works with
-+ numbered lists!
+== Abbildungen und Tabellen
 
-== Figures and Tables
+Abbildungen und Tabellen (mit entsprechenden Beschriftungen) werden wie folgt erstellt.
 
-Create figures or tables like this:
+=== Abbildungen
 
-=== Figures
+#figure(caption: "Eine Abbildung", image(width: 4cm, "assets/ts.svg"))
 
-#figure(caption: "Image Example", image(width: 4cm, "assets/ts.svg"))
-
-=== Tables
+=== Tabellen
 
 #figure(
-  caption: "Table Example",
+  caption: "Eine Tabelle",
   table(
     columns: (1fr, 50%, auto),
     inset: 10pt,
@@ -99,12 +101,12 @@ Create figures or tables like this:
   ),
 )<table>
 
-== Code Snippets
+== Programm Quellcode
 
-Insert code snippets like this:
+Quellcode mit entsprechender Formatierung wird wie folgt eingefügt:
 
 #figure(
-  caption: "Codeblock Example",
+  caption: "Ein Stück Quellcode",
   sourcecode[```ts
     const ReactComponent = () => {
       return (
@@ -118,20 +120,18 @@ Insert code snippets like this:
     ```],
 )
 
-#pagebreak()
 
-== References
+== Verweise
 
-Cite like this #cite(form: "prose", <iso18004>).
-Or like this @iso18004.
+Für Literaturverweise verwendet man die `cite`-Funktion oder die Kurzschreibweise mit dem \@-Zeichen:
+- `#cite(form: "prose", <iso18004>)` ergibt: \ #cite(form: "prose", <iso18004>)
+- Mit `@iso18004` erhält man: @iso18004
 
-You can also reference by adding `<ref>` with the desired name after figures or headings.
+Tabellen, Abbildungen und andere Elemente können mit einem Label in spitzen Klammern gekennzeichnet werden (die Tabelle oben hat z.B. das Label `<table>`). Sie kann dann mit `@table` referenziert werden. Das ergibt im konkreten Fall: @table
 
-For example this @table references the table on the previous page.
+= Fazit
 
-= Conclusion
-
-#lorem(100)
+#lorem(50)
 
 #lorem(120)
 
