@@ -66,7 +66,7 @@ A title-page for these documents should show the following information with diff
 	- Partner Company
 	- Course-ID, Student-ID
 
-Other text currently visible on the title-pages adds just some kind of "noise". There are e.g. prepositions like "*in* Computer Science", "*at* DHBW Karlsruhe" or "*by* John Doe" that add no real information but even use a line of their own. Or phrases like "*für die Prüfung zum Bachelor of Science*" ... well, what else is the purpose of a Bachelor thesis? And do we really need the complete address of the partner company on the title page or would the company name not suffice?
+Other text currently visible on the title-pages adds just some kind of "noise". There are e.g. prepositions like "*in* Computer Science", "*at* DHBW Karlsruhe" or "*by* John Doe" that add no real information but some even use a line of their own. Or phrases like "*für die Prüfung zum Bachelor of Science*" ... well, what else is the purpose of a Bachelor thesis? And do we really need the complete address of the partner company on the title page or would the company name not suffice?
 
 ## Sub-Optimal Page Typography
 Good page typography strives for optimal legibility. This is mainly achieved by using a high-quality body font in an adequate size with a line length of about 60-70 letters. All other measures of the page layout like line height, margins or paragraph spacing are derived thereof. I do not have the impression that the current recommendations are determined by these goals and therefore need some overhaul. 
