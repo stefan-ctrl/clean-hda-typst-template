@@ -23,7 +23,7 @@ For those interested, further and more detailed explanations about the design of
 
 You can use this template in the Typst web app by clicking "Start from template" on the dashboard and searching for `clean-dhbw`.
 
-Alternatively, you can use the CLI to kick this project off using the command
+Alternatively (if you use Typst on your local computer), you can use the CLI to kick this project off using the command
 
 ```shell
 typst init @preview/clean-dhbw
@@ -113,7 +113,7 @@ CAVEAT: The template hasn't been adapted nor tested for more than two authors.
 
 `language (str*)`: Language of the document which is either `en` or `de`, default is `en`
 
-`logo-left (content)`: Path to the logo on the left side of the title page (usage: image("path/to/image.png")), default is the `DHBW logo`
+`logo-left (content)`: Path to the logo on the left side of the title page (usage: image("path/to/image.png")), default is the `DHBW logo`. If it is the only logo given, then it will be displayed centered.
 
 `logo-right (content)`: Path to the logo on the right side of the title page (usage: image("path/to/image.png")), default is `no logo`
 
@@ -146,8 +146,9 @@ CAVEAT: The template hasn't been adapted nor tested for more than two authors.
 
 `university-short (str*)`: Short name of the university (e.g. DHBW), displayed for the university supervisor
 
-Behind the arguments the type of the value is given in parentheses. All arguments marked with `*` are required.
+For each argument the expected type of the value is given in parentheses. All arguments marked with `*` are required.
 
+Have a look at the example file [`main.typ`](https://github.com/roland-KA/clean-dhbw-typst-template/blob/main/template/main.typ) whithin the [`template`](https://github.com/roland-KA/clean-dhbw-typst-template/tree/main/template) directory on how to use the `clean-dhbw`-function with a typical subset of these parameters.
 
 ## Acronyms
 
