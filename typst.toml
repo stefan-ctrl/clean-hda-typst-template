@@ -8,7 +8,7 @@ description = "A Typst Template for DHBW"
 repository = "https://github.com/roland-KA/clean-dhbw-typst-template"
 keywords = ["dhbw", "thesis"]
 categories = ["paper", "thesis", "report"]
-exclude = []
+exclude = ["template/main.pdf"]
 
 [template]
 path = "template"
