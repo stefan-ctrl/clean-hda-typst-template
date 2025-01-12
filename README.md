@@ -2,7 +2,7 @@
 
 A (modernized) [Typst](https://typst.app/) template for DHBW documents like Bachelor theses, "Studienarbeiten", project documentation etc.
 
-You can see an example of how the template looks in this [PDF file](https://github.com/roland-KA/clean-dhbw-typst-template/template/main.pdf).
+You can see an example of how the template looks in this [PDF file](https://github.com/roland-KA/clean-dhbw-typst-template/blob/main/template/main.pdf).
 
 ## Introduction and Motivation
 
