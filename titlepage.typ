@@ -174,11 +174,9 @@
       ),
 
       // company
-      if (not at-university) {
-        align(text(weight: "bold", fill: luma(80), TITLEPAGE_COMPANY.at(language)), top)
-      },
-      if (not at-university) {
-        stack(
+      ..if (not at-university) { 
+        (align(text(weight: "bold", fill: luma(80), TITLEPAGE_COMPANY.at(language)), top),
+         stack(
           dir: ttb,
           for author in authors {
             let company-address = ""
@@ -227,28 +225,28 @@
             linebreak()
           }
         )
+       )
       },
 
       // company supervisor
-      if ("company" in supervisor) {
-        text(weight: "bold", fill: luma(80), TITLEPAGE_COMPANY_SUPERVISOR.at(language))
-      },
-      if ("company" in supervisor and type(supervisor.company) == str) {
-        text(supervisor.company)
+      ..if ("company" in supervisor) {
+        (
+          text(weight: "bold", fill: luma(80), TITLEPAGE_COMPANY_SUPERVISOR.at(language)),
+          if (type(supervisor.company) == str) {text(supervisor.company)}
+        )
       },
 
       // university supervisor
-      if ("university" in supervisor) {
-        text(
-          weight: "bold", fill: luma(80), 
-          TITLEPAGE_SUPERVISOR.at(language) +
-          university-short +
-          [:]
+      ..if ("university" in supervisor) {
+        (
+          text(
+            weight: "bold", fill: luma(80), 
+            TITLEPAGE_SUPERVISOR.at(language) + university-short + [:]
+          ),
+          if (type(supervisor.university) == str) {text(supervisor.university)}
         )
       },
-      if ("university" in supervisor and type(supervisor.university) == str) {
-        text(supervisor.university)
-      }
+
     )
   )
 }
