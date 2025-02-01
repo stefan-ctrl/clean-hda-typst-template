@@ -126,20 +126,23 @@
 
   // ---------- Author(s) ---------------------------------------
 
-  v(8 * page-grid)
-  grid(
-    columns: 100%,
-    gutter: if (many-authors) {
-      14pt
-    } else {
-      1.25 * page-grid
-    },
-    ..authors.map(author => align(
-      center,
-      {
-        text(author.name)
+  place(
+    bottom + center,
+    dy: -10 * page-grid,
+    grid(
+      columns: 100%,
+      gutter: if (many-authors) {
+        14pt
+      } else {
+        1.25 * page-grid
       },
-    ))
+      ..authors.map(author => align(
+        center,
+        {
+          text(author.name)
+        },
+      ))
+    )
   )
 
   // ---------- Info-Block ---------------------------------------
