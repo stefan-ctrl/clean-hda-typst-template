@@ -1,6 +1,6 @@
 # Clean DHBW
 
-A (modernized) [Typst](https://typst.app/) template for DHBW documents like Bachelor theses, "Studienarbeiten", project documentation etc.
+A (modernized) [Typst](https://typst.app/) template for DHBW documents like Bachelor theses, "Studienarbeiten", project documentation etc. It is the official Typst template for Computer Science at DHBW Karlsruhe.
 
 You can see an example of how the template looks in this [PDF file](https://github.com/roland-KA/clean-dhbw-typst-template/blob/main/template/main.pdf).
 
@@ -8,11 +8,11 @@ You can see an example of how the template looks in this [PDF file](https://gith
 
 In my experience as an end-user (i.e. reader) of documents like Bachelor theses and similar works which are currently produced at DHBW, there is room for improvement with respect to their usability.  There exists a recommendation at DHBW on how to structure and design such documents. I have the impression that some of the usability issues I identified are rooted directly within these recommendations, but others stem from the fact that some recommendations are just not thoroughly followed.
 
-In order to give an example on how an improved document structure and layout could look like, I have created the present "*Clean DHBW Typst Template*". It is not only meant as a "show case", but as a working Typst template, which can be used out-of-the-box to create such "improved documents". Therefore I encourage everyone interested to use it. 
+In order to give an example on how an improved document structure and layout could look like, I have created the present "*Clean DHBW Typst Template*". In the meantime it is the official Typst template for Computer Science at DHBW Karlsruhe. But of course anyone interested is welcome to use it too.
 
 Of course such a concept is always a bit biased in some way. Therefore I explain the whys and hows below and I'm looking forward to the discussions it will provoke 😃. The name has been chosen in the sense "clean" is used in Software Engineering in terms like *clean architecture* or *clean code*, where it describes concepts and structures which are easy to understand, to use und to maintain. Furthermore they have a clear separation of concerns and responsibilities – for the case at hand that means: the template defines the typography, whereas the author is responsible for the contents.
 
-There exists already a Typst template for these sorts of documents: It's the ["supercharged-dhbw"-template](https://github.com/DannySeidel/typst-dhbw-template) by Danny Seidel. It is a great piece of work with a lot of functionality covering a broad variety of use cases. But with respect to structure and layout, it implements exactly the above criticized current state (which is without doubt what many people want or maybe have to use). I discussed with Danny on how to realize further development. We agreed to keep `supercharged-dhbw` more or less as-is in order to reflect current state and needs and in consequence to build this new template as a fork of his work. This gave me also  more freedom to go new ways.
+There exists already a Typst template for these sorts of documents: It's the ["supercharged-dhbw"-template](https://github.com/DannySeidel/typst-dhbw-template) by Danny Seidel. It is a great piece of work with a lot of functionality covering a broad variety of use cases. But with respect to structure and layout, it implements exactly the above criticized state (which is without doubt what many people want or maybe have to use). I discussed with Danny on how to realize further development. We agreed to keep `supercharged-dhbw` more or less as-is in order to reflect current state and needs and in consequence to build this new template as a fork of his work. This gave me also  more freedom to go new ways.
 
 For those interested, further and more detailed explanations about the design of the "*Clean DHBW Typst Template*" can be found here:
 - [Assumptions](https://github.com/roland-KA/clean-dhbw-typst-template/blob/main/docs/assumptions.md) made for the development
@@ -26,10 +26,10 @@ You can use this template in the Typst web app by clicking "Start from template"
 Alternatively (if you use Typst on your local computer), you can use the CLI to kick this project off using the command
 
 ```shell
-typst init @preview/clean-dhbw
+typst init @preview/clean-dhbw MyFancyThesis
 ```
 
-Typst will create a new directory with all the files needed to get you started.
+Typst will create a new directory (`MyFancyThesis` in this example) with all the files needed to get you started.
 
 ## Support
 
@@ -39,12 +39,12 @@ For more general questions with respect to Typst, please consult the [Typst docu
 
 ## Fonts
 
-This template uses the following fonts:
+This template uses the following fonts (from Google fonts):
 
 - [Source Serif 4](https://fonts.google.com/specimen/Source+Serif+4)
 - [Source Sans 3](https://fonts.google.com/specimen/Source+Sans+3)
 
-If you want to use typst locally, you can download the fonts from the links above and install them on your system. Otherwise, when using the web version add the fonts to your project.
+If you want to use typst locally, you can download the fonts from the links above and install them on your system (_Hint_: You need the TTF-files located within the `static` subfolders of both font-distributions). Otherwise, when using the web version, add the fonts to your project.
 
 For further information on how to add fonts to your project, please refer to the [Typst documentation](https://typst.app/docs/reference/text/text/#parameters-font).
 
@@ -133,8 +133,6 @@ CAVEAT: The template hasn't been adapted nor tested for more than two authors.
 
 `show-declaration-of-authorship (bool)`: Whether the declaration of authorship should be shown, default is `true`
 
-`show-list-of-figures (bool)`: Whether the list of figures should be shown, default is `true`
-
 `show-table-of-contents (bool)`: Whether the table of contents should be shown, default is `true`
 
 `supervisor (dictionary*)`: Name of the supervisor at the university and/or company (e.g. supervisor: (company: "John Doe", university: "Jane Doe"))
@@ -155,6 +153,69 @@ CAVEAT: The template hasn't been adapted nor tested for more than two authors.
 For each argument the expected type of the value is given in parentheses. All arguments marked with `*` are required.
 
 Have a look at the example file [`main.typ`](https://github.com/roland-KA/clean-dhbw-typst-template/blob/main/template/main.typ) whithin the [`template`](https://github.com/roland-KA/clean-dhbw-typst-template/tree/main/template) directory on how to use the `clean-dhbw`-function with a typical subset of these parameters.
+
+### A typical configuration for a Bachelor Thesis
+
+A typical Bachelor Thesis which has _one author_ and takes place in cooperation between _DHBW_ and the _partner company,_ could have the following parametrization:
+
+```typ
+  title: "Exploration of Typst for the Composition of a University Thesis",
+  authors: (
+    (name: "Max Mustermann", student-id: "7654321", 
+     course: "TIS21", course-of-studies: "Informatik", 
+     company: ((name: "MouseTec GmbH", post-code: "70435", city: "Karlsruhe"))
+    ),
+  ),
+  acronyms: acronyms,     // displays acronyms from acronyms dictionary
+  at-university: false, 
+  type-of-thesis: "Bachelorarbeit",
+  show-confidentiality-statement: true, // optional, if company desires so
+  show-declaration-of-authorship: true,
+  bibliography: bibliography("sources.bib"),
+  date: datetime.today(),
+  glossary: glossary,     // displays glossary terms from glossary dictionary
+  language: "de",         // en, de
+  supervisor: (
+    company: "John Appleseed", 
+    university: "Prof. Dr. Daniel Düsentrieb"
+  ),
+  logo-right: image("path/to/company-logo-image.png"),
+  university: "Duale Hochschule Baden-Württemberg",
+  university-location: "Karlsruhe",
+  university-short: "DHBW",
+```
+
+### A typical configuration for a "Studienarbeit"
+
+A typical Studienarbeit which has _two authors_ and takes place at _DHBW only,_ could have the following parametrization:
+
+```typ
+  title: "Exploration of Typst for the Composition of a University Thesis",
+  authors: (
+    (name: "Max Mustermann", student-id: "7654321", 
+     course: "TIS21", course-of-studies: "Informatik", 
+    ),
+    (name: "Luise Müller", student-id: "7653451", 
+     course: "TIS21", course-of-studies: "Informatik", 
+    ),
+  ),
+  city: "Karlsruhe",
+  acronyms: acronyms,     // displays acronyms from acronyms dictionary
+  at-university: true, 
+  type-of-thesis: "Studienarbeit",
+  show-confidentiality-statement: true, // optional, if company desires so
+  show-declaration-of-authorship: true,
+  bibliography: bibliography("sources.bib"),
+  date: datetime.today(),
+  glossary: glossary,     // displays glossary terms from glossary dictionary
+  language: "de",         // en, de
+  supervisor: (
+    university: "Prof. Dr. Daniel Düsentrieb"
+  ),
+  university: "Duale Hochschule Baden-Württemberg",
+  university-location: "Karlsruhe",
+  university-short: "DHBW",
+```
 
 ## Acronyms
 
