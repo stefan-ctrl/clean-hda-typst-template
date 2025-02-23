@@ -226,14 +226,14 @@
 
   // other TOC entries in regular with adapted filling
   show outline.entry.where(level: 2).or(outline.entry.where(level: 3)): it => {
-    set block(above: 1pt)
+    set block(above: page-grid - body-size)
     set text(font: heading-font, size: body-size)
     link(
       it.element.location(),  // make entry linkable
       it.indented(
           it.prefix(),
           it.body() + "  " +
-            box(width: 1fr, repeat([.], gap: 2pt)) +
+            box(width: 1fr, repeat([.], gap: 2pt), baseline: 30%) +
             "  " + it.page()
       )
     )
