@@ -1,5 +1,4 @@
-// #import "@preview/clean-dhbw:0.2.1": *
-#import "../lib.typ": *
+#import "@preview/clean-dhbw:0.2.1": *
 #import "acronyms.typ": acronyms
 #import "glossary.typ": glossary
 
