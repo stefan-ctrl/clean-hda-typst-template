@@ -1,5 +1,5 @@
 #import "@preview/codelst:2.0.2": *
-#import "@preview/hydra:0.5.1": hydra
+#import "@preview/hydra:0.6.0": hydra
 #import "acronym-lib.typ": init-acronyms, print-acronyms, acr, acrpl, acrs, acrspl, acrl, acrlpl, acrf, acrfpl
 #import "glossary-lib.typ": init-glossary, print-glossary, gls
 #import "locale.typ": TABLE_OF_CONTENTS, APPENDIX, REFERENCES
@@ -113,16 +113,18 @@
   } else {
     ()
   }
+
   let glossary-keys = if (glossary != none) {
     glossary.keys().map(gls => ("glossary-" + gls))
   } else {
     ()
   }
-  show link: it => if (str(it.dest) not in (acronym-keys + glossary-keys + ignored-link-label-keys-for-highlighting)) {
-    text(fill: blue, it)
-  } else {
-    it
-  }
+
+  // show link: it => if (str(it.dest) not in (acronym-keys + glossary-keys + ignored-link-label-keys-for-highlighting)) {
+  //   text(fill: blue, it)
+  // } else {
+  //   it
+  // }
 
   // ========== TITLEPAGE ========================================
 
@@ -210,23 +212,31 @@
     pagebreak()
   }
 
-  // ---------- Outline ---------------------------------------
+  // ---------- ToC (Outline) ---------------------------------------
 
   // top-level TOC entries in bold without filling
   show outline.entry.where(level: 1): it => {
-    v(page-grid, weak: true)
+    set block(above: page-grid)
     set text(font: heading-font, weight: "semibold", size: body-size)
-    it.body
-    box(width: 1fr,)
-    text(weight: "semibold", it.page)
+    link(
+      it.element.location(),    // make entry linkable
+      it.indented(it.prefix(), it.body() + box(width: 1fr,) +  it.page())
+    )
   }
 
   // other TOC entries in regular with adapted filling
   show outline.entry.where(level: 2).or(outline.entry.where(level: 3)): it => {
+    set block(above: 1pt)
     set text(font: heading-font, size: body-size)
-    it.body + "  "
-    box(width: 1fr, repeat([.], gap: 2pt), baseline: 30%, height: body-size + 1pt)
-    "  " + it.page
+    link(
+      it.element.location(),  // make entry linkable
+      it.indented(
+          it.prefix(),
+          it.body() + "  " +
+            box(width: 1fr, repeat([.], gap: 2pt)) +
+            "  " + it.page()
+      )
+    )
   }
 
   if (show-table-of-contents) {
