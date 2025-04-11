@@ -53,15 +53,25 @@
       columns: (1fr, 1fr),
       gutter: 20pt,
       ..authors.map(author => {
-        v(3.5em)
-        line(length: 80%)
+        rect(
+          width: 80%, height: 3.5em, inset: 1pt,
+          stroke: (top: none, y: none, bottom: black),
+          if author.keys().contains("signature") {
+            image(author.signature, width: 100%, height: 100%, fit: "contain")
+          }
+        )
         author.name
       })
     )
   } else {
     for author in authors {
-      v(4em)
-      line(length: 40%)
+      rect(
+        width: 40%, height: 4em, inset: 1pt,
+        stroke: (top: none, y: none, bottom: black),
+        if author.keys().contains("signature") {
+            image(author.signature, width: 100%, height: 100%, fit: "contain")
+        }
+      )
       author.name
     }
   }
