@@ -234,7 +234,7 @@
 
   // ========== DOCUMENT BODY ========================================
 
- // ---------- Heading Format (Part II: H1-H4) ---------------------------------------
+  // ---------- Heading Format (Part II: H1-H4) ---------------------------------------
 
   set heading(numbering: "1.1.1")
 
@@ -302,7 +302,6 @@
     heading(level: 1, GLOSSARY.at(language))
     print-glossary(glossary)
   }
-
 
   // ---------- Appendix (other contents) ---------------------------------------
 
