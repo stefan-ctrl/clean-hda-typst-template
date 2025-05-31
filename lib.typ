@@ -1,7 +1,6 @@
 #import "@preview/codelst:2.0.2": *
 #import "@preview/hydra:0.6.0": hydra
-#import "acronym-lib.typ": init-acronyms, print-acronyms, acr, acrpl, acrs, acrspl, acrl, acrlpl, acrf, acrfpl
-#import "glossary-lib.typ": init-glossary, print-glossary, gls
+#import "@preview/glossarium:0.5.6": make-glossary, register-glossary, print-glossary, gls, glspl
 #import "locale.typ": TABLE_OF_CONTENTS, APPENDIX, REFERENCES
 #import "titlepage.typ": *
 #import "confidentiality-statement.typ": *
@@ -21,14 +20,9 @@
   show-confidentiality-statement: true,
   show-declaration-of-authorship: true,
   show-table-of-contents: true,
-  show-acronyms: true,
   show-abstract: true,
-  acronym-spacing: 5em,
-  glossary-spacing: 1.5em,
   abstract: none,
   appendix: none,
-  acronyms: none,
-  glossary: none,
   confidentiality-statement-content: none,
   declaration-of-authorship-content: none,
   titlepage-content: none,
@@ -40,6 +34,7 @@
   date: none,
   date-format: "[day].[month].[year]",
   bibliography: none,
+  glossary: none,
   bib-style: "ieee",
   math-numbering: "(1)",
   logo-left: image("dhbw.svg"),
@@ -58,19 +53,16 @@
     show-confidentiality-statement,
     show-declaration-of-authorship,
     show-table-of-contents,
-    show-acronyms,
     show-abstract,
-    acronym-spacing,
-    glossary-spacing,
     abstract,
     appendix,
-    acronyms,
     university,
     university-location,
     supervisor,
     date,
     city,
     bibliography,
+    glossary,
     bib-style,
     logo-left,
     logo-right,
@@ -96,10 +88,7 @@
   set document(title: title, author: authors.map(author => author.name))
   let many-authors = authors.len() > 3
   let in-frontmatter = state("in-frontmatter", true)    // to control page number format in frontmatter
-  let in-body = state("in-body", true)                 // to control heading formatting in/outside of body
-
-  init-acronyms(acronyms)
-  init-glossary(glossary)
+  let in-body = state("in-body", true)                  // to control heading formatting in/outside of body
 
   // customize look of figure
   set figure.caption(separator: [ --- ], position: bottom)
@@ -107,24 +96,17 @@
   // math numbering
   set math.equation(numbering: math-numbering)
 
-  // set link style for links that are not acronyms
-  let acronym-keys = if (acronyms != none) {
-    acronyms.keys().map(acr => ("acronyms-" + acr))
-  } else {
-    ()
+  // initialize `glossarium`
+  // CAVEAT: all `figure` show rules must come before this (see `glossarium` docs)
+  show: make-glossary
+
+  // register the glossary passed in `glossary`
+  if (glossary != none) {
+    register-glossary(glossary)
   }
 
-  let glossary-keys = if (glossary != none) {
-    glossary.keys().map(gls => ("glossary-" + gls))
-  } else {
-    ()
-  }
-
-  // show link: it => if (str(it.dest) not in (acronym-keys + glossary-keys + ignored-link-label-keys-for-highlighting)) {
-  //   text(fill: blue, it)
-  // } else {
-  //   it
-  // }
+  // show links in dark blue
+  show link: set text(fill: blue.darken(40%))
 
   // ========== TITLEPAGE ========================================
 
@@ -314,15 +296,13 @@
     bibliography
   }
 
-  // ---------- Acronyms & Glossary ---------------------------------------
+  // ---------- Glossary  ---------------------------------------
 
-  if (show-acronyms and acronyms != none and acronyms.len() > 0) {
-    print-acronyms(language, acronym-spacing)
+  if (glossary != none) {
+    heading(level: 1, GLOSSARY.at(language))
+    print-glossary(glossary)
   }
 
-  if (glossary != none and glossary.len() > 0) {
-    print-glossary(language, glossary-spacing)
-  }
 
   // ---------- Appendix (other contents) ---------------------------------------
 

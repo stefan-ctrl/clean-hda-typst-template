@@ -58,6 +58,8 @@ This template uses the following packages:
 
 - [codelst](https://typst.app/universe/package/codelst): To create code snippets
 - [hydra](https://github.com/tingerrr/hydra): To display the current heading within the header.
+- [glossarium](https://github.com/typst-community/glossarium): For the glossary of the document.
+
 
 ## Configuration
 
@@ -81,10 +83,6 @@ This template exports the `clean-dhbw` function with the following named argumen
 CAVEAT: The template hasn't been adapted nor tested for more than two authors. 
 
 `abstract (content)`: Content of the abstract, it is recommended that you pass a variable containing the content or a function that returns the content
-
-`acronym-spacing (length)`: Spacing between the acronym and its long form (check the [Typst documentation](https://typst.app/docs/reference/layout/length/) for examples on how to provide parameters of type length), default is `5em`
-
-`acronyms (dictionary)`: Pass a dictionary containing the acronyms and their long forms (See the example in the `acronyms.typ` file)
 
 `appendix (content)`: User-defined content of the appendix. It is recommended that you pass a variable containing the content or a function that returns the content
 
@@ -112,11 +110,7 @@ CAVEAT: The template hasn't been adapted nor tested for more than two authors.
 
 `declaration-of-authorship-content (content)`: Provide a custom declaration of authorship
 
-`glossary (dictionary)`: Pass a dictionary containing the glossary terms and their definitions (See the example in the `glossary.typ` file)
-
-`glossary-spacing (length)`: Spacing between the glossary term and its definition (check the [Typst documentation](https://typst.app/docs/reference/layout/length/) for examples on how to provide parameters of type length), default is `1.5em`
-
-`ignored-link-label-keys-for-highlighting (array)`: List of keys of labels that should be ignored when highlighting links in the document, default is `()`
+`glossary (array of arrays)`: Pass an array of arrays (see below or the [glossary docs](https://typst.app/universe/package/glossarium/))
 
 `language (str*)`: Language of the document which is either `en` or `de`, default is `en`
 
@@ -127,8 +121,6 @@ CAVEAT: The template hasn't been adapted nor tested for more than two authors.
 `math-numbering (str)`: Numbering style of the math equations, set to `none` to turn off equation numbering, default is `"(1)"` (for more information on possible numbering formats check the [Typst documentation](https://typst.app/docs/reference/model/numbering))
 
 `show-abstract (bool)`: Whether the abstract should be shown, default is `true`
-
-`show-acronyms (bool)`: Whether the list of acronyms should be shown, default is `true`
 
 `show-confidentiality-statement (bool)`: Whether the confidentiality statement should be shown, default is `true`
 
@@ -167,15 +159,14 @@ A typical Bachelor Thesis which has _one author_ and takes place in cooperation 
      company: ((name: "MouseTec GmbH", post-code: "70435", city: "Karlsruhe"))
     ),
   ),
-  acronyms: acronyms,     // displays acronyms from acronyms dictionary
   at-university: false, 
   type-of-thesis: "Bachelorarbeit",
   show-confidentiality-statement: true, // optional, if company desires so
   show-declaration-of-authorship: true,
   bibliography: bibliography("sources.bib"),
   date: datetime.today(),
-  glossary: glossary,     // displays glossary terms from glossary dictionary
-  language: "de",         // en, de
+  glossary: glossary-entries,          // glossary terms from external file (see below)
+  language: "de",                      // en, de
   supervisor: (
     company: "John Appleseed", 
     university: "Prof. Dr. Daniel Düsentrieb"
@@ -201,91 +192,68 @@ A typical Studienarbeit which has _two authors_ and takes place at _DHBW only,_ 
     ),
   ),
   city: "Karlsruhe",
-  acronyms: acronyms,     // displays acronyms from acronyms dictionary
   at-university: true, 
   type-of-thesis: "Studienarbeit",
   show-confidentiality-statement: true, // optional, if company desires so
   show-declaration-of-authorship: true,
   bibliography: bibliography("sources.bib"),
   date: datetime.today(),
-  glossary: glossary,     // displays glossary terms from glossary dictionary
-  language: "de",         // en, de
+  glossary: glossary-entries,          // glossary terms from external file (see below)
+  language: "de",                      // en, de
   supervisor: (
     university: "Prof. Dr. Daniel Düsentrieb"
   ),
   university: "Duale Hochschule Baden-Württemberg",
   university-location: "Karlsruhe",
   university-short: "DHBW",
-```
-
-## Acronyms
-
-This template provides functions to reference acronyms in the text. To use these functions, you need to define the acronyms in the `acronyms` attribute of the template.
-The acronyms referenced with the functions below will be linked to their definition in the list of acronyms.
-
-### Functions
-
-This template provides the following functions to reference acronyms:
-
-`acr`: Reference an acronym in the text (e.g. `acr("API")` -> `Application Programming Interface (API)` or `API`)
-
-`acrpl`: Reference an acronym in the text in plural form (e.g. `acrpl("API")` -> `Application Programming Interfaces (API)` or `APIs`)
-
-`acrs`: Reference an acronym in the text in short form (e.g. `acrs("API")` -> `API`)
-
-`acrspl`: Reference an acronym in the text in short form in plural form (e.g. `acrpl("API")` -> `APIs`)
-
-`acrl`: Reference an acronym in the text in long form (e.g. `acrl("API")` -> `Application Programming Interface`)
-
-`acrlpl`: Reference an acronym in the text in long form in plural form (e.g. `acrlpl("API")` -> `Application Programming Interfaces`)
-
-`acrf`: Reference an acronym in the text in full form (e.g. `acrf("API")` -> `Application Programming Interface (API)`)
-
-`acrfpl`: Reference an acronym in the text in full form in plural form (e.g. `acrfpl("API")` -> `Application Programming Interfaces (API)`)
-
-### Definition
-
-To define acronyms use a dictionary and pass it to the acronyms attribute of the template.
-The dictionary should contain the acronyms as keys and their long forms as values.
-
-```typst
-#let acronyms = (
-  API: "Application Programming Interface",
-  HTTP: "Hypertext Transfer Protocol",
-  REST: "Representational State Transfer",
-)
-```
-
-To define the plural form of an acronym use a array as value with the first element being the singular form and the second element being the plural form.
-If you don't define the plural form, the template will automatically add an "s" to the singular form.
-
-```typst
-#let acronyms = (
-  API: ("Application Programming Interface", "Application Programming Interfaces"),
-  HTTP: ("Hypertext Transfer Protocol", "Hypertext Transfer Protocols"),
-  REST: ("Representational State Transfer", "Representational State Transfers"),
-)
-```
+``` 
 
 ## Glossary
 
-Similar to the acronyms, this template provides a function to reference glossary terms in the text. To use the function, you need to define the glossary terms in the `glossary` attribute of the template.
-The glossary terms referenced with the function below will be linked to their definition in the list of glossary terms.
+In order to create a glossary, the [`glossarium`-package](https://typst.app/universe/package/glossarium/) is used. That package defines the glossary being an array of arrays like:
 
-### Reference
+```typst  
+(
+  (
+    key: "Vulnerability",
+    description: "A Vulnerability is a flaw in a computer system that weakens the overall security of the system.",
+    group: "Glossar",
+  ),
+  (
+    key: "Patch",
+    description: "A patch is data that is intended to be used to modify an existing software resource such as a program or a file, often to fix bugs and security vulnerabilities.",
+  ),
+)
 
-`gls`: Reference a glossary term in the text (e.g. `gls("Vulnerability")` -> link to the definition of "Vulnerability" in the glossary)
+``` 
 
-### Definition
+You may pass such a structure directly to the `glossary` parameter. But a glossary typically contains a lot more entries. So it should be better placed in a separate file. If you do so and the name of that file is e.g. "myglossary.typ", its content should have the following structure:
 
-The definition works analogously to the acronyms.
-Define the glossary terms in a dictionary and pass it to the glossary attribute of the template.
-The dictionary should contain the glossary terms as keys and their definitions as values.
+```typst 
+#let glossary-entries = (
+  (
+    key: "Vulnerability",
+    description: "A Vulnerability is a flaw in a computer system that weakens the overall security of the system.",
+    group: "Glossar",
+  ),
+  (
+    key: "Patch",
+    description: "A patch is data that is intended to be used to modify an existing software resource such as a program or a file, often to fix bugs and security vulnerabilities.",
+  ),
+)
+``` 
+
+Then you can import this file into your "main.typ" as follows:
 
 ```typst
-#let glossary = (
-  Vulnerability: "A Vulnerability is a flaw in a computer system that weakens the overall security of the system.",
-  Patch: "A patch is data that is intended to be used to modify an existing software resource such as a program or a file, often to fix bugs and security vulnerabilities.",
-  Exploit: "An exploit is a method or piece of code that takes advantage of vulnerabilities in software, applications, networks, operating systems, or hardware, typically for malicious purposes.",
-)
+#import "pathToMyFile/myglossary.typ": glossary-entries
+
+// and when calling the template, you can pass `glossary-entries´ 
+// as an argument to `glossary`:
+
+glossary: glossary-entries
 ```
+
+Please consult the `glossarium` docs to see the many variations it offers for forming a glossary entry. 
+
+If you want to separate terms with longer glossary descriptions from simple acronyms within the glossary, you can use the `group` selector of `glossarium` in order to divide your entries into these categories.

@@ -1,6 +1,5 @@
-#import "@preview/clean-dhbw:0.2.1": *
-#import "acronyms.typ": acronyms
-#import "glossary.typ": glossary
+//#import "@preview/clean-dhbw:0.3.0": *
+#import "glossary.typ": glossary-entries
 
 #show: clean-dhbw.with(
   title: "Evaluation von Typst zur Erstellung einer Abschlussarbeit",
@@ -13,11 +12,10 @@
     // )),
   ),
   type-of-thesis: "Bachelorarbeit",
-  acronyms: acronyms, // displays the acronyms defined in the acronyms dictionary
   at-university: false, // if true the company name on the title page and the confidentiality statement are hidden
   bibliography: bibliography("sources.bib"),
   date: datetime.today(),
-  glossary: glossary, // displays the glossary terms defined in the glossary dictionary
+  glossary: glossary-entries, // displays the glossary terms defined in "glossary.typ"
   language: "de", // en, de
   supervisor: (company: "John Appleseed", university: "Prof. Dr. Daniel Düsentrieb"),
   university: "Duale Hochschule Baden-Württemberg",
@@ -40,20 +38,14 @@
 
 Im folgenden werden einige nützliche Elemente und Funktionen zum Erstellen von Typst-Dokumenten mit diesem Template erläutert.
 
-== Abkürzungen
-
-Verwende die `acr`-Funktion und deren Geschwister `acrpl`, `acrs` und `acrspl`, um Abkürzungen aus dem Abkürzungsverzeichnis einzufügen. Beispiele dafür sind: 
-
-- #acr("HTTP") – `acr`: Singular mit Erläuterung
-- #acrpl("API") – `acrpl`: Plural mit Erläuterung
-- #acrs("REST") - `acrs`: Singular ohne Erläuterung
-- #acrspl("API") – `acrspl`: Plural ohne Erläuterung
-
-== Glossar
+== Ausdrücke und Abkürzungen
 
 Verwende die `gls`-Funktion, um Ausdrücke aus dem Glossar einzufügen, die dann dorthin verlinkt werden. Ein Beispiel dafür ist: 
 
-- Eine #gls("Softwareschnittstelle") ist ein logischer Berührungspunkt in einem Softwaresystem. Sie ermöglicht und regelt den Austausch von Kommandos und Daten zwischen verschiedenen Prozessen und Komponenten.
+Im diesem Kapitel wird eine #gls("Softwareschnittstelle") beschrieben. Man spricht in diesem Zusammenhang auch von einem #gls("API"). Die Schnittstelle nutzt Technologien wie das #gls("HTTP").
+
+Das Template nutzt das `glossarium`-Package für solche Glossar-Referenzen. In der zugehörigen #link("https://typst.app/universe/package/glossarium/", "Dokumentation") werden noch weitere Varianten für derartige Querverweise gezeigt. Dort ist auch im Detail erläutert, wie das Glossar aufgebaut werden kann.
+
 
 == Listen
 

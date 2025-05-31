@@ -8,19 +8,16 @@
   show-confidentiality-statement,
   show-declaration-of-authorship,
   show-table-of-contents,
-  show-acronyms,
   show-abstract,
-  acronym-spacing,
-  glossary-spacing,
   abstract,
   appendix,
-  acronyms,
   university,
   university-location,
   supervisor,
   date,
   city,
   bibliography,
+  glossary,
   bib-style,
   logo-left,
   logo-right,
@@ -28,15 +25,21 @@
   math-numbering,
   ignored-link-label-keys-for-highlighting,
 ) = {
+
+  
+  // Check availability of title
+
   if (title == none or title == "") {
     panic("Title is missing. Specify a title in the 'title' attribute of the template.")
   }
+
+
+  // Check type of boolean attributes
 
   let boolean-attributes = (
     at-university: at-university,
     show-confidentiality-statement: show-confidentiality-statement,
     show-table-of-contents: show-table-of-contents,
-    show-acronyms: show-acronyms,
     show-declaration-of-authorship: show-declaration-of-authorship,
     show-abstract: show-abstract,
   )
@@ -47,29 +50,36 @@
     }
   }
 
+
+  // Check type and content (some shouldn't be empty) of string attributes
+
   let string-attributes = (
     university: university,
     university-location: university-location,
     university-short: university-short,
   )
 
+  // required string attributes
   for (key, attribute) in string-attributes {
     if (type(attribute) != str or attribute.len() == 0) {
       panic("Attribute '" + key + "' is missing. Specify a " + key + " in the '" + key + "' attribute of the template.")
     }
   }
 
+  // optional string attribute
   let optional-string-attributes = (
     type-of-thesis: type-of-thesis,
     bib-style: bib-style,
     math-numbering: math-numbering,
   )
-
   for (key, attribute) in optional-string-attributes {
     if (attribute != none and (type(attribute) != str or attribute.len() == 0)) {
       panic("Attribute '" + key + "' is invalid. Specify a string in the '" + key + "' attribute of the template.")
     }
   }
+
+
+  // Check validity of confidentialty-marker attributes
 
   if (type(confidentiality-marker) != none) {
     if (
@@ -79,10 +89,10 @@
     }
   }
 
-  let length-attributes = (
-    acronym-spacing: acronym-spacing,
-    glossary-spacing: glossary-spacing,
-  )
+
+  // Check type of attributes containing `length`-values
+
+  let length-attributes = ()
 
   if ("offset-x" in confidentiality-marker) {
     length-attributes.insert("offset-x (confidentiality-marker)", confidentiality-marker.offset-x)
@@ -102,6 +112,9 @@
       panic("Attribute '" + key + "' is invalid. Specify a length in the '" + key + "' attribute of the template.")
     }
   }
+
+
+  // Check consistency of all attributes related to `authors`
 
   if (authors == none or authors == ()) {
     panic("Author is missing. Specify authors in the 'authors' attribute of the template.")
@@ -161,9 +174,15 @@
     }
   }
 
+
+  // Check allowed languages
+
   if (language != "en" and language != "de") {
     panic("Language is invalid. Specify 'en' for English or 'de' for German in the 'language' attribute of the template.")
   }
+
+
+  // Check correctness of `date`
 
   if (
     type(date) != datetime and (
@@ -172,6 +191,9 @@
   ) {
     panic("Date is invalid. Specify a datetime in the 'date' attribute of the template to display a specific date or use a array containing two datetime elements to display a date range.")
   }
+
+
+  // Checkt type and content of image-attributes
 
   let image-attributes = (
     logo-left: logo-left,
@@ -184,9 +206,21 @@
     }
   }
 
+
+  // Check type of `glossary`
+  if (glossary != none and type(glossary) != array) {
+    panic("Type of `glossary` is invalid. It must be an array of arrays")
+  }
+  
+  
+  // Check availability of `bibliography`
+
   if (type(bibliography) != content and bibliography != none) {
     panic("Bibliography is invalid. Specify a bibliography in the 'bibliography' attribute of the template.")
   }
+
+
+  // Check correctness of `supervisor`
 
   if (
     type(supervisor) != dictionary or (
@@ -196,6 +230,9 @@
     panic("Supervisor(s) is/are invalid. Specify a supervisor either for the company and/or the university in the 'supervisor' attribute of the template.")
   }
 
+
+  // Check type and content (not empty) of string array attributes
+  
   let string-array-attributes = (
     ignored-link-label-keys-for-highlighting: ignored-link-label-keys-for-highlighting,
   )
