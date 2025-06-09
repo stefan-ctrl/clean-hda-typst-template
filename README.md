@@ -73,7 +73,7 @@ This template exports the `clean-dhbw` function with the following named argumen
 - student-id (str*): Student ID of the author
 - course (str*): Course of the author
 - course-of-studies (str*): Course of studies of the author
-- signature (str): Optional path to an image of the authors signature (used for the declaration of authorship)
+- signature (image): Optional image of the authors signature (used for the declaration of authorship)
 - company (dictionary): Company of the author (only needed when `at-university` is `false`) with the following named arguments:
   - name (str*): Name of the company
   - post-code (str): Post code of the company

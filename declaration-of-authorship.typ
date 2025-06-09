@@ -57,7 +57,7 @@
           width: 80%, height: 3.5em, inset: 1pt,
           stroke: (top: none, y: none, bottom: black),
           if author.keys().contains("signature") {
-            image(author.signature, width: 100%, height: 100%, fit: "contain")
+            box(author.signature)
           }
         )
         author.name
@@ -69,7 +69,7 @@
         width: 40%, height: 4em, inset: 1pt,
         stroke: (top: none, y: none, bottom: black),
         if author.keys().contains("signature") {
-            image(author.signature, width: 100%, height: 100%, fit: "contain")
+            box(author.signature)
         }
       )
       author.name
