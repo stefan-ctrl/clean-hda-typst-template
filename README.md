@@ -1,3 +1,29 @@
+# Fork For Hochschule Darmstadt - University of Applied Sciences
+
+I recreated
+[mbredel/thesis-template](https://github.com/mbredel/thesis-template) in a quick
+an dirty way by forking the existing config of DHBW, which looked the most
+similar to the original latex implementation.
+
+# How to include
+
+1. Add this as a git submodule
+```console
+git submodule add https://github.com/stefan-ctrl/clean-hda-typst-template hda_template
+```
+
+2. Include as the following in your `main.typst`:
+
+```typst
+#import "./hda_template/template/main.typ": *
+```
+
+
+I may publish it to https://typst.app/universe/search/ (template repository) if
+there are some request. 
+
+Contributions are welcome.
+
 # Clean DHBW
 
 A (modernized) [Typst](https://typst.app/) template for DHBW documents like Bachelor theses, "Studienarbeiten", project documentation etc. It is the official Typst template for Computer Science at DHBW Karlsruhe.
