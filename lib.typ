@@ -37,7 +37,7 @@
   glossary: none,
   bib-style: "ieee",
   math-numbering: "(1)",
-  logo-left: image("dhbw.svg"),
+  logo-left: image("hda.svg"),
   logo-right: none,
   ignored-link-label-keys-for-highlighting: (),
   body,
