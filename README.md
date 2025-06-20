@@ -15,14 +15,12 @@ git submodule add https://github.com/stefan-ctrl/clean-hda-typst-template hda_te
 2. Include as the following in your `main.typst`:
 
 ```typst
-#import "./hda_template/template/main.typ": *
+#import "./hda_template/lib.typ": *
 ```
 
 
 I may publish it to https://typst.app/universe/search/ (template repository) if
-there are some request. 
-
-Contributions are welcome.
+there are some request. Contributions are welcome.
 
 # Clean DHBW
 

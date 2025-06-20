@@ -37,7 +37,7 @@
     place(                                
       top + center,
       dy: -3 * page-grid,
-      box(logo-left, height: 3 * page-grid) 
+      box(logo-left, height: 8 * page-grid) 
     )
   } else if logo-left != none and logo-right != none {    // two logos: left & right
     place(
