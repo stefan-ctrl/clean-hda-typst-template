@@ -73,14 +73,14 @@
 
   // ---------- Fonts & Related Measures ---------------------------------------
 
-  let body-font = "Source Serif 4"
+  let body-font = "Palatino"
   let body-size = 11pt
-  let heading-font = "Source Sans 3"
-  let h1-size = 40pt
-  let h2-size = 16pt
+  let heading-font = "Palatino"
+  let h1-size = 20pt
+  let h2-size = 11pt
   let h3-size = 11pt
   let h4-size = 11pt
-  let page-grid = 16pt  // vertical spacing on all pages
+  let page-grid = 13.6pt  // vertical spacing on all pages
 
   
   // ---------- Basic Document Settings ---------------------------------------
@@ -106,7 +106,7 @@
   }
 
   // show links in dark blue
-  show link: set text(fill: blue.darken(40%))
+  // show link: set text(fill: blue.darken(40%))
 
   // ========== TITLEPAGE ========================================
 
@@ -145,6 +145,7 @@
     size: body-size - 0.5pt,      // 0.5pt adjustment because of large x-hight
     top-edge: 0.75 * body-size, 
     bottom-edge: -0.25 * body-size,
+    fill: luma(0),
   )
   set par(
     spacing: page-grid,
@@ -153,7 +154,13 @@
   )
 
   set page(
-    margin: (top: 4cm, bottom: 3cm, left: 4cm, right: 3cm),
+    paper: "a4",
+    margin: (
+      top: 2.5cm,
+      bottom: 3.0cm,
+      left: 3.0cm + 5mm, // left margin + BCOR (binding correction)
+      right: 2.5cm,
+    ),
     header:
       grid(
         columns: (1fr, 1fr),
@@ -183,7 +190,7 @@
   
   // ---------- Heading Format (Part I) ---------------------------------------
 
-  show heading: set text(weight: "bold", fill: luma(80), font: heading-font)
+  show heading: set text(weight: "bold", font: heading-font)
   show heading.where(level: 1): it => {v(2 * page-grid) + text(size: 2 * page-grid, it)}
 
   // ---------- Abstract ---------------------------------------
@@ -249,19 +256,21 @@
     pagebreak()
     context{ 
       if in-body.get() {
-        v(page-grid * 10)
-        place(              // place heading number prominently at the upper right corner
+        v(page-grid * 1.5)
+        place(
           top + right,
-          dx: 9pt,          // slight adjustment for optimal alignment with right margin
+          //dx: 25pt, // move further right, adjust as needed
+          dy: page-grid * 0.55,         // no vertical shift
           text(counter(heading).display(), 
             top-edge: "bounds",
-            size: page-grid * 10, weight: 900, luma(235), 
+            size: h1-size, weight: 0, luma(43.53%),
+            font: "New Computer Modern Math" 
           )
         )
         text(               // heading text on separate line
           it.body, size: h1-size,
-          top-edge: 0.75em, 
-          bottom-edge: -0.25em,
+          top-edge: 0em, 
+          bottom-edge: 0em,
         )
       } else {
         v(2 * page-grid) 
