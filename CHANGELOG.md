@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.1.0
+- add license information
+- prepare release for typst package page
+
 ## 0.0.2
 - added hda themed template
 - add new rendered pdf

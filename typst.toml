@@ -1,12 +1,12 @@
 [package]
-name = "clean-dhbw"
-version = "0.3.1"
+name = "clean-hda"
+version = "0.1.0"
 entrypoint = "lib.typ"
-authors = ["Roland Schätzle <@roland-KA>"]
+authors = ["Roland Schätzle <@roland-KA>", "Stefan Siber <@stefan-ctrl>"]
 license = "MIT"
-description = "A Typst Template for DHBW"
-repository = "https://github.com/roland-KA/clean-dhbw-typst-template"
-keywords = ["dhbw", "thesis"]
+description = "A Typst Template for Hochschule Darmstadt (h_da) - University of Applied Sciences"
+repository = "https://github.com/stefan-ctrl/clean-hda-typst-template"
+keywords = ["h_da", "Darmstadt, "thesis"]
 categories = ["paper", "thesis", "report"]
 exclude = ["template/main.pdf"]
 
