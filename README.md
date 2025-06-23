@@ -1,10 +1,14 @@
 # Fork For Hochschule Darmstadt - University of Applied Sciences
 
 I recreated
-[mbredel/thesis-template](https://github.com/mbredel/thesis-template) in a quick
-an dirty way by forking the existing config of DHBW, which looked the most
-similar to the original latex implementation.
+[mbredel/thesis-template](https://github.com/mbredel/thesis-template) in by
+forking the existing config of DHBW, which looked the most similar to the
+original latex implementation. 
 
+> [!NOTE]
+> This is an **unofficial** template for [Hochschule Darmstadt - University of Applied Sciences](www.h-da.de) for the department of Computer Sciences.
+> Contributions and takeover by h_da affiliated are welcome. 
+ 
 # How to include
 
 1. Add this as a git submodule
@@ -15,12 +19,18 @@ git submodule add https://github.com/stefan-ctrl/clean-hda-typst-template hda_te
 2. Include as the following in your `main.typst`:
 
 ```typst
-#import "./hda_template/lib.typ": *
+#import "./hda_template/template/main.typ": *
 ```
 
+Contributions are welcome.
 
-I may publish it to https://typst.app/universe/search/ (template repository) if
-there are some request. Contributions are welcome.
+# Clean HDA
+
+To see the direct changes compared to to [forked DHBW
+project](https://github.com/roland-KA/clean-dhbw-typst-template.git), consider
+taking a look at [CHANGELOG.MD](./CHANGELOG.md).
+
+The following documentation is the original from [roland-KA/clean-dhbw-typst-template](https://github.com/roland-KA/clean-dhbw-typst-template)
 
 # Clean DHBW
 
@@ -50,7 +60,7 @@ You can use this template in the Typst web app by clicking "Start from template"
 Alternatively (if you use Typst on your local computer), you can use the CLI to kick this project off using the command
 
 ```shell
-typst init @preview/clean-dhbw MyFancyThesis
+typst init @preview/clean-hda MyFancyThesis
 ```
 
 Typst will create a new directory (`MyFancyThesis` in this example) with all the files needed to get you started.
