@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.2
+- added hda themed template
+- add new rendered pdf
+
 ## 0.0.1
 
 The following section is a states direct changes compared to [forked DHBW
