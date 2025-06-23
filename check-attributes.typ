@@ -161,7 +161,7 @@
       }
 
       if (type(city) != str or city == "") {
-        panic("City is invalid. Specify a string containing a city in the 'city' attribute.")
+        //panic("City is invalid. Specify a string containing a city in the 'city' attribute.")
       }
     } else {
       if (type(city) == str) {
@@ -223,11 +223,9 @@
   // Check correctness of `supervisor`
 
   if (
-    type(supervisor) != dictionary or (
-      "company" not in supervisor or supervisor.company == none or supervisor.company == ""
-    ) and ("university" not in supervisor or supervisor.university == none or supervisor.university == "")
+    type(supervisor) != dictionary or ("ref" not in supervisor or supervisor.ref == none or supervisor.ref == "") and ("co-ref" not in supervisor or supervisor.co-ref == none or supervisor.co-ref == "")
   ) {
-    panic("Supervisor(s) is/are invalid. Specify a supervisor either for the company and/or the university in the 'supervisor' attribute of the template.")
+    panic("Supervisor(s) is/are invalid. Specify a supervisor either for the company and/or the ref in the 'supervisor' attribute of the template.")
   }
 
 
