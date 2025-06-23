@@ -1,27 +1,21 @@
-#import "@preview/clean-dhbw:0.3.1": *
+#import "@preview/clean-hda:0.1.0": *
 #import "glossary.typ": glossary-entries
 
-#show: clean-dhbw.with(
+#show: clean-hda.with(
   title: "Evaluation von Typst zur Erstellung einer Abschlussarbeit",
   authors: (
-    (name: "Max Mustermann", student-id: "7654321", course: "TINF22B2", course-of-studies: "Informatik", company: (
-      (name: "ABC GmbH", post-code: "76131", city: "Karlsruhe")
-    )),
-    // (name: "Juan Pérez", student-id: "1234567", course: "TIM21", course-of-studies: "Mobile Computer Science", company: (
-    //   (name: "ABC S.L.", post-code: "08005", city: "Barcelona", country: "Spain")
-    // )),
+    (name: "Max Mustermann", student-id: "7654321", course-of-studies: "Informatik", course: "Masterthesis", city:"Darmstadt"),
   ),
   type-of-thesis: "Bachelorarbeit",
-  at-university: false, // if true the company name on the title page and the confidentiality statement are hidden
+  at-university: true, // if true the company name on the title page and the confidentiality statement are hidden
   bibliography: bibliography("sources.bib"),
   date: datetime.today(),
   glossary: glossary-entries, // displays the glossary terms defined in "glossary.typ"
   language: "de", // en, de
-  supervisor: (company: "John Appleseed", university: "Prof. Dr. Daniel Düsentrieb"),
-  university: "Duale Hochschule Baden-Württemberg",
-  university-location: "Karlsruhe",
-  university-short: "DHBW",
-  // for more options check the package documentation (https://typst.app/universe/package/clean-dhbw)
+  supervisor: (ref: "Prof. Dr. Daniel Düsentrieb", co-ref: "Prof. Dr. Daniel Düsentrieb"),
+  university: "Hochschule Darmstadt - University of Applied Sciences",
+  university-location: "Darmstadt",
+  university-short: "h_da",
 )
 
 // Edit this content to your liking
