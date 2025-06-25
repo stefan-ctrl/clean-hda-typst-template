@@ -2,7 +2,7 @@
 
 ## 0.2.0
 - remove company supervisor
-- replaced university supervisor with `supervisor.ref` and `supervisor.coref`/`supervisor.co-ref`. `coref` and `co-ref` are accepted as aliases.
+- replaced university supervisor with `supervisor.ref` and `supervisor.co-ref`.
   ```tex
   #show: clean-hda.with(
     //...

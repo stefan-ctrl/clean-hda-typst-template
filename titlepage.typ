@@ -240,17 +240,15 @@
           if (type(supervisor.ref) == str) {text(supervisor.ref)}
         )
       },
-      // university supervisor
-      ..if ("coref" in supervisor or "co-ref" in supervisor) {
+      ..if ("co-ref" in supervisor) {
         (
           text(
             weight: "bold", fill: luma(80),
             TITLEPAGE_SUPERVISOR_COREF.at(language) + [:]
           ),
-          if (type(supervisor.coref) == str) {text(supervisor.ref)}
-          else if (type(supervisor.co-ref) == str) {text(supervisor.co-ref)}
+          if (type(supervisor.co-ref) == str) {text(supervisor.co-ref)}
         )
-      },
+        },
     )
   )
 }
