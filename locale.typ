@@ -29,7 +29,9 @@
 )
 
 #let DECLARATION_OF_AUTHORSHIP_SECTION = ( 
- "de": "Ich versichere hiermit, dass ich die vorliegende Arbeit selbständig verfasst und keine anderen als die im Literaturverzeichnis angegebenen Quellen benutzt habe. Alle Stellen, die wörtlich oder sinngemäß aus veröffentlichten oder noch nicht veröffentlichten Quellen entnommen sind, sind als solche kenntlich gemacht. Die Zeichnungen oder Abbildungen in dieser Arbeit sind von mir selbst erstellt worden oder mit einem entsprechenden Quellennachweis versehen. Diese Arbeit ist in gleicher oder ähnlicher Form noch bei keiner anderen Prüfungsbehörde eingereicht worden.")
+ "de": "Ich versichere hiermit, dass ich die vorliegende Arbeit selbständig verfasst und keine anderen als die im Literaturverzeichnis angegebenen Quellen benutzt habe. Alle Stellen, die wörtlich oder sinngemäß aus veröffentlichten oder noch nicht veröffentlichten Quellen entnommen sind, sind als solche kenntlich gemacht. Die Zeichnungen oder Abbildungen in dieser Arbeit sind von mir selbst erstellt worden oder mit einem entsprechenden Quellennachweis versehen. Diese Arbeit ist in gleicher oder ähnlicher Form noch bei keiner anderen Prüfungsbehörde eingereicht worden.",
+ "en": "I hereby certify that I have written this thesis independently and have not used any sources other than those listed in the bibliography. All passages taken verbatim or in spirit from published or as yet unpublished sources are identified as such. The drawings or illustrations in this work have been created by myself or have been provided with a corresponding source reference. This thesis has not been submitted in the same or a similar form to any other examination authority.",
+ )
 
 #let CONFIDENTIALITY_STATEMENT_TITLE = (
   "de": "Sperrvermerk",

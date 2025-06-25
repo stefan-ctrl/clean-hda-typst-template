@@ -1,6 +1,9 @@
 # Changelog
 
 ## 0.2.0
+
+
+### Features
 - remove company supervisor
 - replaced university supervisor with `supervisor.ref` and `supervisor.co-ref`.
   ```tex
@@ -10,6 +13,10 @@
   )
   ```
 - `co-ref` is optional 
+
+
+### Fixes
+- added `DECLARATION_OF_AUTHORSHIP_SECTION` in language`en` 
 
 ## 0.1.0
 - add license information
