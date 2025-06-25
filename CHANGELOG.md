@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.0
+- remove company supervisor
+- replaced university supervisor with `supervisor.ref` and `supervisor.coref`/`supervisor.co-ref`. `coref` and `co-ref` are accepted as aliases.
+  ```tex
+  #show: clean-hda.with(
+    //...
+    supervisor: (ref: "Prof. Dr. Daniel Düsentrieb", co-ref: "Prof. Dr. Daniel Düsentrieb"),
+  )
+  ```
+- `co-ref` is optional 
+
 ## 0.1.0
 - add license information
 - prepare release for typst package page

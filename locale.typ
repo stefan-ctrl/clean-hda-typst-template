@@ -13,19 +13,14 @@
   "en": "Student ID, Course:",
 )
 
-#let TITLEPAGE_COMPANY = (
-  "de": "Unternehmen:",
-  "en": "Company:",
+#let TITLEPAGE_SUPERVISOR_REF = (
+  "de": "Referent",
+  "en": "Examiner",
 )
 
-#let TITLEPAGE_COMPANY_SUPERVISOR = (
-  "de": "Betreuer im Unternehmen:",
-  "en": "Supervisor in the Company:",
-)
-
-#let TITLEPAGE_SUPERVISOR = (
-  "de": "Betreuer an der ",
-  "en": "Supervisor at ",
+#let TITLEPAGE_SUPERVISOR_COREF = (
+  "de": "Korreferent",
+  "en": "Co-Examiner",
 )
 
 #let DECLARATION_OF_AUTHORSHIP_TITLE = (
