@@ -5,15 +5,16 @@
 
 ### Features
 - remove company supervisor
-- replaced university supervisor with `supervisor.ref` and `supervisor.co-ref`.
+  - replaced university supervisor with `supervisor.ref` and `supervisor.co-ref`.
   ```tex
   #show: clean-hda.with(
     //...
     supervisor: (ref: "Prof. Dr. Daniel Düsentrieb", co-ref: "Prof. Dr. Daniel Düsentrieb"),
   )
   ```
-- `co-ref` is optional 
+  - `co-ref` is optional 
 
+- add optional subtitle `subtitle` as input parameter to template
 
 ### Fixes
 - added `DECLARATION_OF_AUTHORSHIP_SECTION` in language`en` 

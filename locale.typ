@@ -9,6 +9,11 @@
 )
 
 #let TITLEPAGE_STUDENT_ID = (
+  "de": "Matrikelnummer:",
+  "en": "Student ID:",
+)
+
+#let TITLEPAGE_STUDENT_ID_AND_COURSE = (
   "de": "Matrikelnummer, Kurs:",
   "en": "Student ID, Course:",
 )

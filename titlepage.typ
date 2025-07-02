@@ -10,6 +10,7 @@
   many-authors,
   supervisor,
   title,
+  subtitle,
   type-of-thesis,
   university,
   university-location,
@@ -56,7 +57,12 @@
 
   v(7 * page-grid)     
   text(weight: "bold", fill: luma(80), size: 1.5 * page-grid, title)
+  v(0.25 * page-grid)
+  if subtitle != none {
+    text(fill: luma(80), size: page-grid, subtitle)
+  }
   v(page-grid)
+
   
   // ---------- Confidentiality Marker (optional) ---------------------------------------
 
@@ -167,7 +173,7 @@
       ),
 
       // students
-      align(text(weight: "bold", fill: luma(80), TITLEPAGE_STUDENT_ID.at(language)), top),
+      align(text(weight: "bold", fill: luma(80), TITLEPAGE_STUDENT_ID_AND_COURSE.at(language)), top),
       stack(
         dir: ttb,
         for author in authors {
