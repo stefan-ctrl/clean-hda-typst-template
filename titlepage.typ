@@ -10,6 +10,7 @@
   many-authors,
   supervisor,
   title,
+  subtitle,
   type-of-thesis,
   university,
   university-location,
@@ -56,7 +57,12 @@
 
   v(7 * page-grid)     
   text(weight: "bold", fill: luma(80), size: 1.5 * page-grid, title)
+  v(0.25 * page-grid)
+  if subtitle != none {
+    text(fill: luma(80), size: page-grid, subtitle)
+  }
   v(page-grid)
+
   
   // ---------- Confidentiality Marker (optional) ---------------------------------------
 
@@ -167,7 +173,7 @@
       ),
 
       // students
-      align(text(weight: "bold", fill: luma(80), TITLEPAGE_STUDENT_ID.at(language)), top),
+      align(text(weight: "bold", fill: luma(80), TITLEPAGE_STUDENT_ID_AND_COURSE.at(language)), top),
       stack(
         dir: ttb,
         for author in authors {
@@ -230,26 +236,25 @@
         )
        )
       },
-
-      // company supervisor
-      ..if ("company" in supervisor) {
-        (
-          text(weight: "bold", fill: luma(80), TITLEPAGE_COMPANY_SUPERVISOR.at(language)),
-          if (type(supervisor.company) == str) {text(supervisor.company)}
-        )
-      },
-
       // university supervisor
-      ..if ("university" in supervisor) {
+      ..if ("ref" in supervisor) {
         (
           text(
             weight: "bold", fill: luma(80), 
-            TITLEPAGE_SUPERVISOR.at(language) + university-short + [:]
+            TITLEPAGE_SUPERVISOR_REF.at(language) + [:]
           ),
-          if (type(supervisor.university) == str) {text(supervisor.university)}
+          if (type(supervisor.ref) == str) {text(supervisor.ref)}
         )
       },
-
+      ..if ("co-ref" in supervisor) {
+        (
+          text(
+            weight: "bold", fill: luma(80),
+            TITLEPAGE_SUPERVISOR_COREF.at(language) + [:]
+          ),
+          if (type(supervisor.co-ref) == str) {text(supervisor.co-ref)}
+        )
+        },
     )
   )
 }

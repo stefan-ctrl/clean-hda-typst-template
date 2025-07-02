@@ -12,6 +12,7 @@
 
 #let clean-hda(
   title: none,
+  subtitle: none,
   authors: (:),
   language: none,
   at-university: none,
@@ -123,6 +124,7 @@
       many-authors,
       supervisor,
       title,
+      subtitle,
       type-of-thesis,
       university,
       university-location,

@@ -3,6 +3,7 @@
 
 #show: clean-hda.with(
   title: "Evaluation von Typst zur Erstellung einer Abschlussarbeit",
+  subtitle: "Untertitel für einer Arbeit",
   authors: (
     (name: "Max Mustermann", student-id: "7654321", course-of-studies: "Informatik", course: "Masterthesis", city:"Darmstadt"),
   ),

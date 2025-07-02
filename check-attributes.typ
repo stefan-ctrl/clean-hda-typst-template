@@ -223,9 +223,9 @@
   // Check correctness of `supervisor`
 
   if (
-    type(supervisor) != dictionary or ("ref" not in supervisor or supervisor.ref == none or supervisor.ref == "") and ("co-ref" not in supervisor or supervisor.co-ref == none or supervisor.co-ref == "")
+    type(supervisor) != dictionary or ("ref" not in supervisor or supervisor.ref == none or supervisor.ref == "")
   ) {
-    panic("Supervisor(s) is/are invalid. Specify a supervisor either for the company and/or the ref in the 'supervisor' attribute of the template.")
+    panic("Supervisor.Ref is invalid. Please set supervisor.ref (lower case). Co-Ref is optional.")
   }
 
 
