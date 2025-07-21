@@ -206,7 +206,7 @@
   }
 
   // ---------- ToC (Outline) ---------------------------------------
-  set page(numbering: "I") // numbering for List fo Abbreviations and other entries before body
+  set page(numbering: "i", footer: none) // numbering for List fo Abbreviations and other entries before body
 
   // top-level TOC entries in bold without filling
   show outline.entry.where(level: 1): it => {
@@ -244,6 +244,11 @@
 
   pagebreak()
   abbr.load(abbr-list-csv)
+  abbr.config(style: key => {
+    let val = if text.weight <= "medium" { 15% } else { 30% }
+    set text(fill: blue.darken(val))
+    key
+  })
   abbr.list()
 
 
