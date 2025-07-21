@@ -17,6 +17,7 @@
   university: "Hochschule Darmstadt - University of Applied Sciences",
   university-location: "Darmstadt",
   university-short: "h_da",
+  // todo: add abbr
 )
 
 // Edit this content to your liking

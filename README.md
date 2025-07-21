@@ -39,6 +39,45 @@ git submodule add https://github.com/stefan-ctrl/clean-hda-typst-template hda_te
 
 Contributions are welcome.
 
+## Abbreviations
+
+The template includes built-in support for abbreviations using the `abbr` package. You can define your abbreviations in a CSV file and reference them throughout your document.
+
+### Setting up abbreviations
+
+1. Create a CSV file with your abbreviations (e.g., `abbr.csv`):
+```csv
+PR,Pull Request
+MR,Merge Request
+K8S,Kubernetes
+CI/CD,Continuous Integration/Continuous Deployment
+h_da,Hochschule Darmstadt
+```
+
+2. Reference the CSV file in your main document:
+```typst
+#show: clean-hda.with(
+  // ... other configuration ...
+  abbr-list-csv: "abbr.csv", // path to your abbreviations file
+)
+```
+
+### Using abbreviations in your text
+
+Once configured, you can use abbreviations in your text with the `@` symbol or
+by using `abbr` [package/abbr](https://typst.app/universe/package/abbr/):
+
+```typst
+This @PR implements a new feature for @K8S deployment.
+The @CI/CD pipeline at @h_da ensures quality.
+```
+
+The template will automatically:
+- Generate a list of abbreviations in the front matter
+- Expand abbreviations on first use
+- Use short forms on subsequent references
+- Create clickable links between abbreviations and their definitions
+
 ## Forked from DHBW Template
 
 Please review the original forked documentation for more information, configuration and usage options :

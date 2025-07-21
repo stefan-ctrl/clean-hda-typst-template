@@ -1,5 +1,6 @@
 #import "@preview/codelst:2.0.2": *
 #import "@preview/hydra:0.6.1": hydra
+#import "@preview/abbr:0.2.3"
 #import "@preview/glossarium:0.5.6": make-glossary, register-glossary, print-glossary, gls, glspl
 #import "locale.typ": TABLE_OF_CONTENTS, APPENDIX, REFERENCES
 #import "titlepage.typ": *
@@ -41,6 +42,7 @@
   logo-left: image("hda.svg"),
   logo-right: none,
   ignored-link-label-keys-for-highlighting: (),
+  abbr-list-csv: "abbr.csv",
   body,
 ) = {
   // check required attributes
@@ -204,6 +206,7 @@
   }
 
   // ---------- ToC (Outline) ---------------------------------------
+  set page(numbering: "I") // numbering for List fo Abbreviations and other entries before body
 
   // top-level TOC entries in bold without filling
   show outline.entry.where(level: 1): it => {
@@ -229,7 +232,6 @@
       )
     )
   }
-
   if (show-table-of-contents) {
     outline(
       title: TABLE_OF_CONTENTS.at(language),
@@ -238,8 +240,17 @@
     )
   }
 
+    // Abbreviations 
+
+  pagebreak()
+  abbr.load(abbr-list-csv)
+  abbr.list()
+
+
+
+  set page(numbering: "1") // numbering for body body
   in-frontmatter.update(false)  // end of frontmatter
-  counter(page).update(0)       // so the first chapter starts at page 1 (now in arabic numbers)
+  counter(page).update(1)       // so the first chapter starts at page 1 (now in arabic numbers)
 
   // ========== DOCUMENT BODY ========================================
 
