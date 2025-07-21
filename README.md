@@ -8,7 +8,7 @@ The template recreates
 forking the the existing template of [DHBW](https://github.com/roland-KA/clean-dhbw-typst-template), which looked the most similar to the
 original latex implementation for h_da students. 
 
-This is an **unofficial** template for [Hochschule Darmstadt - University of Applied Sciences](www.h-da.de) for the department of Computer Sciences.
+This is an **unofficial** template for [Hochschule Darmstadt - University of Applied Sciences](https://h-da.de/en/) for the department of Computer Sciences.
 Contributions and takeover by h_da affiliated are welcome. 
  
 ## Getting started
