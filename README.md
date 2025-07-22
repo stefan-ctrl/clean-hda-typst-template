@@ -58,24 +58,24 @@ h_da,Hochschule Darmstadt
 ```typst
 #show: clean-hda.with(
   // ... other configuration ...
-  abbr-list-csv: "abbr.csv", // path to your abbreviations file
+  abbr-list-csv: "../abbr.csv", // path to your abbreviations file
 )
 ```
 
 ### Using abbreviations in your text
 
-Once configured, you can use abbreviations in your text with the `@` symbol or
-by using `abbr` [package/abbr](https://typst.app/universe/package/abbr/):
+Once configured, you can use abbreviations in your text by using `abbr`. See the
+various commands at [package/abbr](https://typst.app/universe/package/abbr/):
 
 ```typst
-This @PR implements a new feature for @K8S deployment.
-The @CI/CD pipeline at @h_da ensures quality.
+This #abbr.a[PR] implements a new feature for #abbr.a[K8S] deployment.
+The #abbr.a[CI/CD] pipeline at #abbr.a[h_da] ensures quality.
 ```
 
 The template will automatically:
-- Generate a list of abbreviations in the front matter
+- Generate a list of abbreviations in the front matter and includes it in the
+  Table of Contents
 - Expand abbreviations on first use
-- Use short forms on subsequent references
 - Create clickable links between abbreviations and their definitions
 
 ## Forked from DHBW Template
