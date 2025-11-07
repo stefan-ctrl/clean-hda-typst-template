@@ -370,7 +370,7 @@
       language,
       many-authors,
       at-university,
-      city,
+      university-location,
       date-format,
     )
   }
