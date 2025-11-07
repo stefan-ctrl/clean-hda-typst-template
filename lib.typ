@@ -1,6 +1,6 @@
 #import "@preview/codelst:2.0.2": *
 #import "@preview/hydra:0.6.1": hydra
-#import "@preview/abbr:0.2.3"
+#import "@preview/abbr:0.3.0"
 #import "@preview/glossarium:0.5.6": make-glossary, register-glossary, print-glossary, gls, glspl
 #import "locale.typ": TABLE_OF_CONTENTS, APPENDIX, REFERENCES
 #import "titlepage.typ": *
@@ -10,6 +10,8 @@
 
 // Workaround for the lack of an `std` scope.
 #let std-bibliography = bibliography
+
+#let hda-abbr=abbr
 
 #let clean-hda(
   title: none,
@@ -243,6 +245,7 @@
     // Abbreviations 
 
   pagebreak()
+  show: abbr.show-rule
   abbr.load(abbr-list-csv)
   abbr.config(style: key => {
     let val = if text.weight <= "medium" { 15% } else { 30% }
