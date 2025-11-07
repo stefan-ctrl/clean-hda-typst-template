@@ -45,6 +45,7 @@
   logo-right: none,
   ignored-link-label-keys-for-highlighting: (),
   abbr-list-csv: "abbr.csv",
+  abbr-page-break: true,
   body,
 ) = {
   // check required attributes
@@ -244,7 +245,9 @@
 
     // Abbreviations 
 
-  pagebreak()
+  if abbr-page-break {
+    pagebreak()
+  }
   show: abbr.show-rule
   abbr.load(abbr-list-csv)
   abbr.config(style: key => {
