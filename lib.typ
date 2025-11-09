@@ -4,6 +4,7 @@
 #import "@preview/glossarium:0.5.6": make-glossary, register-glossary, print-glossary, gls, glspl
 #import "locale.typ": TABLE_OF_CONTENTS, APPENDIX, REFERENCES
 #import "titlepage.typ": *
+#import "info-page.typ": *
 #import "confidentiality-statement.typ": *
 #import "declaration-of-authorship.typ": *
 #import "check-attributes.typ": *
@@ -24,6 +25,7 @@
   show-confidentiality-statement: true,
   show-declaration-of-authorship: true,
   show-table-of-contents: true,
+  show-info-page: false,
   show-abstract: true,
   abstract: none,
   appendix: none,
@@ -46,6 +48,7 @@
   ignored-link-label-keys-for-highlighting: (),
   abbr-list-csv: "abbr.csv",
   abbr-page-break: true,
+  pdf-version: "v1.0.0",
   body,
 ) = {
   // check required attributes
@@ -142,6 +145,19 @@
     )
   }
   counter(page).update(1)  
+
+  // ========== INFO PAGE ========================================
+  
+  if (show-info-page) {
+    pagebreak()
+    info-page(
+      authors,
+      title,
+      date,
+      date-format,
+      pdf-version,
+    )
+  }
 
   // ---------- Page Setup ---------------------------------------
 
