@@ -1,14 +1,18 @@
 #import "@preview/codelst:2.0.2": *
 #import "@preview/hydra:0.6.1": hydra
+#import "@preview/abbr:0.3.0"
 #import "@preview/glossarium:0.5.6": make-glossary, register-glossary, print-glossary, gls, glspl
 #import "locale.typ": TABLE_OF_CONTENTS, APPENDIX, REFERENCES
 #import "titlepage.typ": *
+#import "info-page.typ": *
 #import "confidentiality-statement.typ": *
 #import "declaration-of-authorship.typ": *
 #import "check-attributes.typ": *
 
 // Workaround for the lack of an `std` scope.
 #let std-bibliography = bibliography
+
+#let hda-abbr=abbr
 
 #let clean-hda(
   title: none,
@@ -21,6 +25,7 @@
   show-confidentiality-statement: true,
   show-declaration-of-authorship: true,
   show-table-of-contents: true,
+  show-info-page: false,
   show-abstract: true,
   abstract: none,
   appendix: none,
@@ -41,6 +46,9 @@
   logo-left: image("hda.svg"),
   logo-right: none,
   ignored-link-label-keys-for-highlighting: (),
+  abbr-list-csv: "abbr.csv",
+  abbr-page-break: true,
+  pdf-version: "v1.0.0",
   body,
 ) = {
   // check required attributes
@@ -138,6 +146,19 @@
   }
   counter(page).update(1)  
 
+  // ========== INFO PAGE ========================================
+  
+  if (show-info-page) {
+    pagebreak()
+    info-page(
+      authors,
+      title,
+      date,
+      date-format,
+      pdf-version,
+    )
+  }
+
   // ---------- Page Setup ---------------------------------------
 
   // adapt body text layout to basic measures
@@ -204,6 +225,7 @@
   }
 
   // ---------- ToC (Outline) ---------------------------------------
+  set page(numbering: "i", footer: none) // numbering for List fo Abbreviations and other entries before body
 
   // top-level TOC entries in bold without filling
   show outline.entry.where(level: 1): it => {
@@ -229,7 +251,6 @@
       )
     )
   }
-
   if (show-table-of-contents) {
     outline(
       title: TABLE_OF_CONTENTS.at(language),
@@ -238,8 +259,25 @@
     )
   }
 
+    // Abbreviations 
+
+  if abbr-page-break {
+    pagebreak()
+  }
+  show: abbr.show-rule
+  abbr.load(abbr-list-csv)
+  abbr.config(style: key => {
+    let val = if text.weight <= "medium" { 15% } else { 30% }
+    set text(fill: blue.darken(val))
+    key
+  })
+  abbr.list()
+
+
+
+  set page(numbering: "1") // numbering for body body
   in-frontmatter.update(false)  // end of frontmatter
-  counter(page).update(0)       // so the first chapter starts at page 1 (now in arabic numbers)
+  counter(page).update(1)       // so the first chapter starts at page 1 (now in arabic numbers)
 
   // ========== DOCUMENT BODY ========================================
 
@@ -351,7 +389,7 @@
       language,
       many-authors,
       at-university,
-      city,
+      university-location,
       date-format,
     )
   }

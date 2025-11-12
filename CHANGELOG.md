@@ -16,6 +16,12 @@
 
 - add optional subtitle `subtitle` as input parameter to template
 
+- add [package/abbr](https://typst.app/universe/package/abbr/)
+  - Automatic abbreviation management with CSV file support
+  - First use expansion and subsequent short form usage
+  - Automatic list of abbreviations generation in front matter
+  - Clickable links between abbreviations and definitions
+
 ### Fixes
 - added `DECLARATION_OF_AUTHORSHIP_SECTION` in language`en` 
 

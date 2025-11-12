@@ -8,7 +8,7 @@ The template recreates
 forking the the existing template of [DHBW](https://github.com/roland-KA/clean-dhbw-typst-template), which looked the most similar to the
 original latex implementation for h_da students. 
 
-This is an **unofficial** template for [Hochschule Darmstadt - University of Applied Sciences](www.h-da.de) for the department of Computer Sciences.
+This is an **unofficial** template for [Hochschule Darmstadt - University of Applied Sciences](https://h-da.de/en/) for the department of Computer Sciences.
 Contributions and takeover by h_da affiliated are welcome. 
  
 ## Getting started
@@ -38,6 +38,45 @@ git submodule add https://github.com/stefan-ctrl/clean-hda-typst-template hda_te
 ```
 
 Contributions are welcome.
+
+## Abbreviations
+
+The template includes built-in support for abbreviations using the `abbr` package. You can define your abbreviations in a CSV file and reference them throughout your document.
+
+### Setting up abbreviations
+
+1. Create a CSV file with your abbreviations (e.g., `abbr.csv`):
+```csv
+PR,Pull Request
+MR,Merge Request
+K8S,Kubernetes
+CI/CD,Continuous Integration/Continuous Deployment
+h_da,Hochschule Darmstadt
+```
+
+2. Reference the CSV file in your main document:
+```typst
+#show: clean-hda.with(
+  // ... other configuration ...
+  abbr-list-csv: "../abbr.csv", // path to your abbreviations file
+)
+```
+
+### Using abbreviations in your text
+
+Once configured, you can use abbreviations in your text by using `abbr`. See the
+various commands at [package/abbr](https://typst.app/universe/package/abbr/):
+
+```typst
+This #abbr.a[PR] implements a new feature for #abbr.a[K8S] deployment.
+The #abbr.a[CI/CD] pipeline at #abbr.a[h_da] ensures quality.
+```
+
+The template will automatically:
+- Generate a list of abbreviations in the front matter and includes it in the
+  Table of Contents
+- Expand abbreviations on first use
+- Create clickable links between abbreviations and their definitions
 
 ## Forked from DHBW Template
 
