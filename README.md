@@ -1,5 +1,12 @@
 # Clean HDA
 
+> [!IMPORTANT]
+> This repo has been achieved because of **issues with GitHubs fork network**,
+> that make development cumbersome.
+> Please refer to
+> [stefan-ctrl/cleanest-hda-typst-template](https://github.com/stefan-ctrl/cleanest-hda-typst-template)
+> for the latest updates.
+
 A [Typst](https://typst.app/) template for h_da thesis and papers in the department of Computer Sciences.
 
 
