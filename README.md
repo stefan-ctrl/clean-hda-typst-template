@@ -1,7 +1,7 @@
 # Clean HDA
 
 > [!IMPORTANT]
-> This repo has been achieved because of **issues with GitHubs fork network**,
+> This repo has been archived because of **issues with GitHubs fork network**,
 > that make development cumbersome.
 > Please refer to
 > [stefan-ctrl/cleanest-hda-typst-template](https://github.com/stefan-ctrl/cleanest-hda-typst-template)
